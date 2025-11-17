@@ -1,26 +1,26 @@
 """
 Main recommendation engine.
-Combines rule-based, feature-based, and ML model scores to generate recommendations.
+Combines rule-based and ML model scores to generate recommendations.
 """
 from typing import List, Dict, Optional
 import pandas as pd
 from datetime import datetime
 from app.services.data_loader import get_data_loader
 from app.services.rule_based_scorer import RuleBasedScorer
-from app.services.ml_scorer import MLScorer
+from app.services.feature_extractor import FeatureExtractor
 from app.services.ml_model import get_ml_model_service
 from app.services.yield_predictor import YieldPredictor
 from app.utils.data_processor import extract_fertilizer_recommendation
 
 
 class RecommendationEngine:
-    """Main recommendation engine combining all scoring methods."""
+    """Main recommendation engine combining rule-based and ML model scoring."""
     
     def __init__(self):
         """Initialize recommendation engine."""
         self.data_loader = get_data_loader()
         self.rule_scorer = RuleBasedScorer()
-        self.ml_scorer = MLScorer()
+        self.feature_extractor = FeatureExtractor()
         self.ml_model = get_ml_model_service()
         self.yield_predictor = YieldPredictor()
     
@@ -92,25 +92,7 @@ class RecommendationEngine:
             rule_score = rule_result['total_score']
             rule_breakdown = rule_result['breakdown']
             
-            # Calculate feature-based score
-            feature_result = self.ml_scorer.calculate_score(
-                crop_data=crop_row,
-                farmer_nitrogen=nitrogen,
-                farmer_phosphorus=phosphorus,
-                farmer_potassium=potassium,
-                farmer_ph_min=ph_min,
-                farmer_ph_max=ph_max,
-                farmer_soil_type=soil_type,
-                avg_temperature=avg_temp,
-                avg_rainfall=avg_rainfall,
-                avg_humidity=avg_humidity,
-                historical_yield_data=historical_data,
-                current_month=current_month
-            )
-            feature_score = feature_result['total_score']
-            feature_breakdown = feature_result['breakdown']
-            
-            # Calculate ML model score
+            # Calculate ML model score (uses all 9 features including historical/seasonal/regional)
             ml_model_score = self.ml_model.predict_score(
                 crop_data=crop_row,
                 farmer_nitrogen=nitrogen,
@@ -128,33 +110,44 @@ class RecommendationEngine:
                 crop_category=crop_row.get('Category', '')
             )
             
-            # Calculate hybrid score (40% rule, 30% feature, 30% ML model)
+            # Calculate hybrid score (50% rule-based, 50% ML model)
             hybrid_score = (
-                rule_score * 0.40 +
-                feature_score * 0.30 +
-                ml_model_score * 0.30
+                rule_score * 0.50 +
+                ml_model_score * 0.50
             )
             
-            # Calculate confidence (agreement between methods)
-            score_diff1 = abs(rule_score - feature_score)
-            score_diff2 = abs(rule_score - ml_model_score)
-            score_diff3 = abs(feature_score - ml_model_score)
-            max_diff = max(score_diff1, score_diff2, score_diff3)
-            confidence = max(0.0, 100.0 - max_diff)
+            # Calculate confidence (agreement between rule-based and ML model)
+            confidence = max(0.0, 100.0 - abs(rule_score - ml_model_score))
+            
+            # Extract features for yield prediction (need feature values for factors)
+            features = self.feature_extractor.extract_features(
+                crop_data=crop_row,
+                farmer_nitrogen=nitrogen,
+                farmer_phosphorus=phosphorus,
+                farmer_potassium=potassium,
+                farmer_ph_min=ph_min,
+                farmer_ph_max=ph_max,
+                farmer_soil_type=soil_type,
+                avg_temperature=avg_temp,
+                avg_rainfall=avg_rainfall,
+                avg_humidity=avg_humidity,
+                historical_yield_data=historical_data,
+                current_month=current_month
+            )
             
             # Identify risks
-            risks = self._identify_risks(rule_breakdown, feature_breakdown, historical_data)
+            risks = self._identify_risks(rule_breakdown, historical_data)
             
             # Predict expected yield
             climate_factor = self.yield_predictor.calculate_climate_factor(
-                feature_breakdown['temp_suitability'],
-                feature_breakdown['rainfall_suitability'],
-                feature_breakdown['humidity_suitability']
+                features['temp_suitability'],
+                features['rainfall_suitability'],
+                features['humidity_suitability']
             )
             soil_factor = self.yield_predictor.calculate_soil_factor(
-                feature_breakdown['npk_match'],
-                feature_breakdown['ph_proximity'],
-                feature_breakdown['soil_match']
+                features['npk_match'],
+                features['ph_proximity'],
+                features['soil_match']
             )
             expected_yield = self.yield_predictor.predict_yield(
                 crop_data=crop_row,
@@ -165,8 +158,7 @@ class RecommendationEngine:
             
             # Generate "why recommended" text
             why_recommended = self._generate_why_recommended(
-                crop_row, rule_breakdown, feature_breakdown, 
-                historical_data, province
+                crop_row, rule_breakdown, historical_data, province
             )
             
             # Extract fertilizer recommendation
@@ -178,7 +170,6 @@ class RecommendationEngine:
                 'category': crop_row.get('Category', 'Unknown'),
                 'hybrid_score': round(hybrid_score, 2),
                 'rule_score': round(rule_score, 2),
-                'feature_score': round(feature_score, 2),
                 'ml_model_score': round(ml_model_score, 2),
                 'confidence': round(confidence, 2),
                 'expected_yield': expected_yield,
@@ -194,9 +185,6 @@ class RecommendationEngine:
                     'rainfall': round(rule_breakdown['rainfall'], 2),
                     'humidity': round(rule_breakdown['humidity'], 2),
                     'soil_type': round(rule_breakdown['soil_type'], 2)
-                },
-                'feature_breakdown': {
-                    k: round(v, 3) for k, v in feature_breakdown.items()
                 }
             }
             
@@ -242,7 +230,6 @@ class RecommendationEngine:
     def _identify_risks(
         self,
         rule_breakdown: Dict,
-        feature_breakdown: Dict,
         historical_data: Optional[Dict]
     ) -> List[str]:
         """Identify risks based on low component scores."""
@@ -260,7 +247,10 @@ class RecommendationEngine:
         if rule_breakdown['rainfall'] < 10:
             risks.append("Rainfall insufficient - irrigation needed")
         
-        if historical_data is None or feature_breakdown.get('historical_yield', 0.5) < 0.3:
+        # Check historical data for limited success
+        if historical_data is None:
+            risks.append("Limited success history in this province")
+        elif historical_data.get('avg_yield_per_ha', 0) < 6.0:  # Less than 6 tons/ha
             risks.append("Limited success history in this province")
         
         return risks
@@ -269,14 +259,13 @@ class RecommendationEngine:
         self,
         crop_data: pd.Series,
         rule_breakdown: Dict,
-        feature_breakdown: Dict,
         historical_data: Optional[Dict],
         province: str
     ) -> str:
         """Generate explanation text for why crop is recommended."""
         reasons = []
         
-        # Check top scoring factors
+        # Check top scoring factors from rule-based
         if rule_breakdown['npk'] >= 25:
             reasons.append("excellent NPK match")
         
@@ -289,6 +278,7 @@ class RecommendationEngine:
         if rule_breakdown['rainfall'] >= 12:
             reasons.append("adequate rainfall")
         
+        # Add historical performance context (ML model considers this)
         if historical_data:
             avg_yield = historical_data.get('avg_yield_per_ha', 0)
             years = historical_data.get('years_of_data', 0)

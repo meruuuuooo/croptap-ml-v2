@@ -65,10 +65,9 @@ Response: Top 10 crop recommendations with detailed scores, risks, and explanati
 
 ## Development
 
-The system uses a three-tier scoring approach:
-1. **Rule-Based (40%)**: Expert rules for NPK, pH, climate, and soil matching
-2. **Feature-Based (30%)**: Weighted feature combination
-3. **ML Model (30%)**: Trained regression model predicting suitability scores
+The system uses a two-tier scoring approach:
+1. **Rule-Based (50%)**: Expert rules for NPK, pH, climate, and soil matching (6 components)
+2. **ML Model (50%)**: Trained regression model predicting suitability scores using 9 features (includes historical yield, season alignment, regional success)
 
-Final hybrid score = (Rule × 0.4) + (Feature × 0.3) + (ML Model × 0.3)
+Final hybrid score = (Rule × 0.5) + (ML Model × 0.5)
 

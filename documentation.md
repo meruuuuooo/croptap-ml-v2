@@ -25,10 +25,9 @@ The Hybrid Crop Recommendation System is an intelligent decision support tool de
 
 ### Key Features
 
-- **Hybrid Scoring Approach**: Combines three scoring methods:
-  - Rule-based scoring (40% weight)
-  - Feature-based scoring (30% weight)
-  - Trained ML model scoring (30% weight)
+- **Hybrid Scoring Approach**: Combines two scoring methods:
+  - Rule-based scoring (50% weight) - Expert knowledge with 6 core components
+  - Trained ML model scoring (50% weight) - Data-driven predictions using 9 features
 - **Comprehensive Analysis**: Evaluates all 106 crops simultaneously
 - **Risk Assessment**: Identifies potential issues and provides recommendations
 - **Yield Prediction**: Estimates expected yields based on conditions
@@ -53,12 +52,12 @@ The Hybrid Crop Recommendation System is an intelligent decision support tool de
 └───────┬──────┘ └─────────────┘ └─────┬──────┘
         │                               │
         │         ┌─────────────────────┼─────────────────────┐
-        │         │                     │                     │
-┌───────▼─────────▼──────┐  ┌──────────▼──────────┐  ┌──────▼──────────┐
-│  Rule-Based Scorer     │  │  Feature Extractor  │  │  ML Model       │
-│  (40% weight)          │  │  + ML Scorer        │  │  (30% weight)   │
-│                        │  │  (30% weight)       │  │                 │
-└────────────────────────┘  └─────────────────────┘  └─────────────────┘
+        │         │                                           │
+┌───────▼─────────▼──────┐                             ┌──────▼──────────┐
+│  Rule-Based Scorer     │                             │  ML Model       │
+│  (50% weight)          │                             │  (50% weight)   │
+│                        │                             │                 │
+└────────────────────────┘                             └─────────────────┘
 ```
 
 ### Data Flow
@@ -111,9 +110,9 @@ The Hybrid Crop Recommendation System is an intelligent decision support tool de
 
 ### Hybrid Scoring System
 
-The system uses a three-tier scoring approach:
+The system uses a two-tier scoring approach:
 
-#### 1. Rule-Based Scoring (40% Weight)
+#### 1. Rule-Based Scoring (50% Weight)
 
 Implements expert knowledge through 6 components (total 100 points):
 
@@ -143,38 +142,7 @@ Implements expert knowledge through 6 components (total 100 points):
 
 **Total Rule Score**: Sum of all components (0-100)
 
-#### 2. Feature-Based Scoring (30% Weight)
-
-Extracts 9 normalized features (0-1 scale) with weighted combination:
-
-| Feature | Weight | Description |
-|---------|--------|-------------|
-| NPK Match Ratio | 15% | Count of matching nutrients / 3 |
-| pH Proximity | 10% | Distance from optimal pH within range |
-| Temperature Suitability | 15% | Distance from optimal temp within range |
-| Rainfall Suitability | 15% | Distance from optimal rainfall within range |
-| Humidity Suitability | 10% | Distance from optimal humidity within range |
-| Soil Type Match | 10% | Binary/partial match (1.0 or 0.3) |
-| Historical Yield Performance | 15% | Normalized yield per hectare (max 20 tons/ha) |
-| Growing Season Alignment | 5% | Current month in planting period |
-| Regional Success Rate | 5% | Years of data / 10 (max 1.0) |
-
-**Feature Score Calculation**:
-```
-FEATURE_SCORE = (
-    npk_match × 0.15 +
-    ph_proximity × 0.10 +
-    temp_suitability × 0.15 +
-    rainfall_suitability × 0.15 +
-    humidity_suitability × 0.10 +
-    soil_match × 0.10 +
-    historical_yield × 0.15 +
-    season_alignment × 0.05 +
-    regional_success × 0.05
-) × 100
-```
-
-#### 3. Trained ML Model Scoring (30% Weight)
+#### 2. Trained ML Model Scoring (50% Weight)
 
 **Model Type**: Regression (Random Forest or XGBoost)
 
@@ -184,7 +152,18 @@ FEATURE_SCORE = (
 - Medium yield → 50-80
 - Low yield → 0-50
 
-**Features**: Same 9 features as feature-based scoring
+**Features**: 9 normalized features (0-1 scale):
+1. **NPK Match Ratio**: Count of matching nutrients / 3
+2. **pH Proximity**: Distance from optimal pH within range
+3. **Temperature Suitability**: Distance from optimal temp within range
+4. **Rainfall Suitability**: Distance from optimal rainfall within range
+5. **Humidity Suitability**: Distance from optimal humidity within range
+6. **Soil Type Match**: Binary/partial match (1.0 or 0.3)
+7. **Historical Yield Performance**: Normalized yield per hectare (max 20 tons/ha)
+8. **Growing Season Alignment**: Current month in planting period
+9. **Regional Success Rate**: Years of data / 10 (max 1.0)
+
+**Key Advantage**: The ML model learns complex patterns and interactions between all 9 features, including the 3 unique features (historical yield, season alignment, regional success) that are not in rule-based scoring.
 
 **Training Data**: 
 - Merged dataset combining:
@@ -198,18 +177,23 @@ FEATURE_SCORE = (
 #### Final Hybrid Score
 
 ```
-HYBRID_SCORE = (RULE_SCORE × 0.40) + (FEATURE_SCORE × 0.30) + (ML_MODEL_SCORE × 0.30)
+HYBRID_SCORE = (RULE_SCORE × 0.50) + (ML_MODEL_SCORE × 0.50)
 ```
+
+**Rationale**: 
+- Rule-based (50%): Provides interpretable expert knowledge based on 6 core factors
+- ML Model (50%): Learns data-driven patterns from all 9 features, including historical/seasonal/regional context
 
 #### Confidence Calculation
 
 ```
-CONFIDENCE = 100 - max(|RULE - FEATURE|, |RULE - ML|, |FEATURE - ML|)
+CONFIDENCE = 100 - |RULE_SCORE - ML_MODEL_SCORE|
 ```
 
-High confidence (≥80): Methods agree
-Medium confidence (60-79): Some disagreement
-Low confidence (<60): Methods disagree significantly
+**Confidence Levels**:
+- High confidence (≥80): Rule-based and ML model agree closely
+- Medium confidence (60-79): Some disagreement between methods
+- Low confidence (<60): Significant disagreement - may indicate edge case or data quality issue
 
 ---
 
@@ -223,6 +207,7 @@ Low confidence (<60): Methods disagree significantly
 - Calculate 5-year climate averages (2020-2024)
 - Handle missing data with province-level fallback
 - Cache climate averages for performance
+- Aggregate soil test data by province for training
 
 **Key Methods**:
 - `load_all_data()`: Loads all datasets and creates unified database
@@ -273,7 +258,7 @@ Similar implementations for temperature, rainfall, humidity, and soil type.
 
 ### Feature Extractor (`app/services/feature_extractor.py`)
 
-Extracts 9 normalized features for ML model input:
+Extracts 9 normalized features (0-1 scale) for ML model input and yield prediction:
 
 **Example: Temperature Suitability**:
 ```python
@@ -301,6 +286,10 @@ def _extract_season_alignment(crop_data, current_month):
     return max(0.0, 1.0 - (months_away / 6.0))
 ```
 
+### ML Scorer (Removed)
+
+The feature-based scoring component has been removed to eliminate redundancy. The ML model now directly uses all 9 features, including the 3 unique features (historical yield, season alignment, regional success) that provide additional context beyond rule-based scoring.
+
 ### ML Model Service (`app/services/ml_model.py`)
 
 **Model Loading**:
@@ -325,25 +314,23 @@ def generate_recommendations(province, municipality, nitrogen, phosphorus,
     
     # 2. Loop through all crops
     for crop in all_crops:
-        # 3. Calculate rule-based score
+        # 3. Calculate rule-based score (6 components)
         rule_score = rule_scorer.calculate_score(...)
         
-        # 4. Calculate feature-based score
-        feature_score = ml_scorer.calculate_score(...)
-        
-        # 5. Predict ML model score
+        # 4. Predict ML model score (uses all 9 features)
         ml_model_score = ml_model.predict_score(...)
         
-        # 6. Calculate hybrid score
-        hybrid_score = (rule_score * 0.40 + 
-                       feature_score * 0.30 + 
-                       ml_model_score * 0.30)
+        # 5. Calculate hybrid score (50/50 split)
+        hybrid_score = (rule_score * 0.50 + ml_model_score * 0.50)
         
-        # 7. Calculate confidence
-        confidence = 100 - max(|rule - feature|, |rule - ml|, |feature - ml|)
+        # 6. Calculate confidence (agreement between two methods)
+        confidence = 100 - |rule_score - ml_model_score|
+        
+        # 7. Extract features for yield prediction
+        features = feature_extractor.extract_features(...)
         
         # 8. Identify risks
-        risks = identify_risks(rule_breakdown, feature_breakdown, ...)
+        risks = identify_risks(rule_breakdown, historical_data)
         
         # 9. Predict yield
         expected_yield = yield_predictor.predict_yield(...)
@@ -557,9 +544,8 @@ POST /recommend
       "category": "Corn",
       "hybrid_score": 87.5,
       "rule_score": 85.0,
-      "feature_score": 89.2,
       "ml_model_score": 88.1,
-      "confidence": 95.8,
+      "confidence": 97.1,
       "badge": "Best Match",
       "expected_yield": "4.5-6.0 tons/ha",
       "risks": [],
@@ -574,17 +560,6 @@ POST /recommend
         "rainfall": 15.0,
         "humidity": 10.0,
         "soil_type": 5.0
-      },
-      "feature_breakdown": {
-        "npk_match": 1.0,
-        "ph_proximity": 0.95,
-        "temp_suitability": 0.98,
-        "rainfall_suitability": 0.92,
-        "humidity_suitability": 0.88,
-        "soil_match": 1.0,
-        "historical_yield": 0.85,
-        "season_alignment": 1.0,
-        "regional_success": 1.0
       }
     }
     // ... 9 more recommendations
@@ -782,8 +757,9 @@ for rec in recommendations['recommendations']:
 
 - **Time Complexity**: O(n × m) where:
   - n = number of crops (106)
-  - m = feature extraction complexity (constant)
+  - m = feature extraction + model prediction complexity (constant)
 - **Space Complexity**: O(n) for storing crop data and recommendations
+- **Scoring Components**: 2 (rule-based + ML model) instead of 3, reducing computation
 
 ### Scalability
 
@@ -797,6 +773,7 @@ for rec in recommendations['recommendations']:
 2. **Model Training**: Uses aggregated province-level soil data (not individual farmer data)
 3. **Climate Fallback**: Falls back to province-level if municipality not found
 4. **Season Alignment**: Uses current month (could be parameterized)
+5. **Feature-Based Score Removed**: The 3 unique features (historical yield, season, regional success) are now only in ML model, not in a separate interpretable score
 
 ### Future Improvements
 
@@ -834,7 +811,7 @@ for rec in recommendations['recommendations']:
 
 The Hybrid Crop Recommendation System successfully combines rule-based expert knowledge with machine learning to provide accurate, actionable crop recommendations for Filipino farmers. The system processes real-world data from multiple sources, evaluates 106 crops simultaneously, and provides detailed insights to help farmers make informed decisions.
 
-The three-tier scoring approach (rule-based, feature-based, and ML model) ensures robust recommendations with confidence metrics, while the comprehensive risk assessment helps farmers understand potential challenges and required interventions.
+The two-tier scoring approach (rule-based 50% + ML model 50%) ensures robust recommendations with confidence metrics. The rule-based component provides interpretable expert knowledge, while the ML model learns complex patterns from historical data including seasonal and regional factors. This design eliminates redundancy while maintaining both interpretability and data-driven insights. The comprehensive risk assessment helps farmers understand potential challenges and required interventions.
 
 ---
 

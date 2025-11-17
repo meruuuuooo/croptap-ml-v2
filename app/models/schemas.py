@@ -56,19 +56,6 @@ class RuleBreakdown(BaseModel):
     soil_type: float
 
 
-class FeatureBreakdown(BaseModel):
-    """Feature-based score breakdown."""
-    npk_match: float
-    ph_proximity: float
-    temp_suitability: float
-    rainfall_suitability: float
-    humidity_suitability: float
-    soil_match: float
-    historical_yield: float
-    season_alignment: float
-    regional_success: float
-
-
 class CropRecommendation(BaseModel):
     """Individual crop recommendation."""
     rank: int
@@ -76,7 +63,6 @@ class CropRecommendation(BaseModel):
     category: str
     hybrid_score: float
     rule_score: float
-    feature_score: float
     ml_model_score: float
     confidence: float
     badge: Optional[str] = None
@@ -87,7 +73,6 @@ class CropRecommendation(BaseModel):
     fertilizer_recommendation: str
     why_recommended: str
     rule_breakdown: RuleBreakdown
-    feature_breakdown: FeatureBreakdown
 
 
 class LocationSummary(BaseModel):
