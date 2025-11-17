@@ -1,0 +1,144 @@
+"""
+Trained ML model service for predicting crop suitability scores.
+Loads and uses trained regression model (Option 2: Direct suitability score prediction).
+"""
+import os
+import joblib
+import numpy as np
+from pathlib import Path
+from typing import Dict, Optional
+import pandas as pd
+from app.services.feature_extractor import FeatureExtractor
+
+
+class MLModelService:
+    """Service for loading and using trained ML model."""
+    
+    def __init__(self, model_path: str = "models/crop_yield_model.pkl"):
+        """Initialize ML model service."""
+        self.model_path = Path(model_path)
+        self.model = None
+        self.feature_extractor = FeatureExtractor()
+        self.is_loaded = False
+    
+    def load_model(self) -> bool:
+        """
+        Load trained model from file.
+        
+        Returns:
+            True if loaded successfully, False otherwise
+        """
+        if not self.model_path.exists():
+            print(f"Warning: Model file not found at {self.model_path}")
+            print("Please train the model first using the Jupyter notebooks.")
+            return False
+        
+        try:
+            self.model = joblib.load(self.model_path)
+            self.is_loaded = True
+            print(f"ML model loaded successfully from {self.model_path}")
+            return True
+        except Exception as e:
+            print(f"Error loading model: {e}")
+            return False
+    
+    def predict_score(
+        self,
+        crop_data,
+        farmer_nitrogen: str,
+        farmer_phosphorus: str,
+        farmer_potassium: str,
+        farmer_ph_min: float,
+        farmer_ph_max: float,
+        farmer_soil_type: str,
+        avg_temperature: float,
+        avg_rainfall: float,
+        avg_humidity: float,
+        historical_yield_data: Dict = None,
+        current_month: int = None,
+        province: str = None,
+        crop_category: str = None
+    ) -> float:
+        """
+        Predict suitability score (0-100) using trained ML model.
+        
+        Args:
+            crop_data: Crop data from unified database
+            farmer_nitrogen: Farmer's nitrogen level
+            farmer_phosphorus: Farmer's phosphorus level
+            farmer_potassium: Farmer's potassium level
+            farmer_ph_min: Farmer's minimum pH
+            farmer_ph_max: Farmer's maximum pH
+            farmer_soil_type: Farmer's soil type
+            avg_temperature: Average temperature
+            avg_rainfall: Average rainfall
+            avg_humidity: Average humidity
+            historical_yield_data: Optional historical yield data
+            current_month: Optional current month
+            province: Optional province name (for encoding)
+            crop_category: Optional crop category (for encoding)
+        
+        Returns:
+            Predicted suitability score (0-100), or 50.0 if model not loaded
+        """
+        if not self.is_loaded:
+            if not self.load_model():
+                # Return neutral score if model not available
+                return 50.0
+        
+        # Extract features
+        features = self.feature_extractor.extract_features(
+            crop_data=crop_data,
+            farmer_nitrogen=farmer_nitrogen,
+            farmer_phosphorus=farmer_phosphorus,
+            farmer_potassium=farmer_potassium,
+            farmer_ph_min=farmer_ph_min,
+            farmer_ph_max=farmer_ph_max,
+            farmer_soil_type=farmer_soil_type,
+            avg_temperature=avg_temperature,
+            avg_rainfall=avg_rainfall,
+            avg_humidity=avg_humidity,
+            historical_yield_data=historical_yield_data,
+            current_month=current_month
+        )
+        
+        # Prepare feature array (order matters - must match training)
+        feature_names = [
+            'npk_match', 'ph_proximity', 'temp_suitability',
+            'rainfall_suitability', 'humidity_suitability', 'soil_match',
+            'historical_yield', 'season_alignment', 'regional_success'
+        ]
+        
+        feature_array = np.array([features[name] for name in feature_names])
+        
+        # Add additional features if model expects them (province, category encodings)
+        # This will be determined during model training
+        # For now, assume model only uses the 9 base features
+        
+        # Reshape for single prediction
+        feature_array = feature_array.reshape(1, -1)
+        
+        try:
+            # Predict suitability score
+            prediction = self.model.predict(feature_array)[0]
+            
+            # Ensure score is in 0-100 range
+            prediction = max(0.0, min(100.0, prediction))
+            
+            return float(prediction)
+        except Exception as e:
+            print(f"Error during prediction: {e}")
+            return 50.0  # Return neutral score on error
+
+
+# Global instance
+_ml_model_instance = None
+
+def get_ml_model_service() -> MLModelService:
+    """Get or create global ML model service instance."""
+    global _ml_model_instance
+    if _ml_model_instance is None:
+        _ml_model_instance = MLModelService()
+        _ml_model_instance.load_model()
+    return _ml_model_instance
+
