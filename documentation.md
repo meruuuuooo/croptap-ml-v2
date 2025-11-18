@@ -69,7 +69,7 @@ The Hybrid Crop Recommendation System is an intelligent decision support tool de
    - Calculate rule-based score
    - Extract 9 features and calculate feature-based score
    - Predict ML model score
-   - Combine scores (hybrid = 40% rule + 30% feature + 30% ML)
+   - Combine scores (hybrid = 40% rule + 60% ML)
 5. **Ranking**: Sort crops by hybrid score
 6. **Output**: Return top 10 recommendations with detailed analysis
 
