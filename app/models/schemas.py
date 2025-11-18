@@ -56,6 +56,19 @@ class RuleBreakdown(BaseModel):
     soil_type: float
 
 
+class MLBreakdown(BaseModel):
+    """ML model score breakdown."""
+    npk_match: float
+    ph_proximity: float
+    temp_suitability: float
+    rainfall_suitability: float
+    humidity_suitability: float
+    soil_match: float
+    historical_yield: float
+    season_alignment: float
+    regional_success: float
+
+
 class CropRecommendation(BaseModel):
     """Individual crop recommendation."""
     rank: int
@@ -73,6 +86,7 @@ class CropRecommendation(BaseModel):
     fertilizer_recommendation: str
     why_recommended: str
     rule_breakdown: RuleBreakdown
+    ml_breakdown: MLBreakdown
 
 
 class LocationSummary(BaseModel):

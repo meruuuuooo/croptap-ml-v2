@@ -110,10 +110,10 @@ class RecommendationEngine:
                 crop_category=crop_row.get('Category', '')
             )
             
-            # Calculate hybrid score (50% rule-based, 50% ML model)
+            # Calculate hybrid score (40% rule-based, 60% ML model)
             hybrid_score = (
-                rule_score * 0.50 +
-                ml_model_score * 0.50
+                rule_score * 0.40 +
+                ml_model_score * 0.60
             )
             
             # Calculate confidence (agreement between rule-based and ML model)
@@ -185,6 +185,17 @@ class RecommendationEngine:
                     'rainfall': round(rule_breakdown['rainfall'], 2),
                     'humidity': round(rule_breakdown['humidity'], 2),
                     'soil_type': round(rule_breakdown['soil_type'], 2)
+                },
+                'ml_breakdown': {
+                    'npk_match': round(features['npk_match'], 2),
+                    'ph_proximity': round(features['ph_proximity'], 2),
+                    'temp_suitability': round(features['temp_suitability'], 2),
+                    'rainfall_suitability': round(features['rainfall_suitability'], 2),
+                    'humidity_suitability': round(features['humidity_suitability'], 2),
+                    'soil_match': round(features['soil_match'], 2),
+                    'historical_yield': round(features['historical_yield'], 2),
+                    'season_alignment': round(features['season_alignment'], 2),
+                    'regional_success': round(features['regional_success'], 2)
                 }
             }
             

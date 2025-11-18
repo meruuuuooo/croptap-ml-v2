@@ -2,7 +2,7 @@
 Trained ML model service for predicting crop suitability scores.
 Loads and uses trained regression model (Option 2: Direct suitability score prediction).
 """
-import os
+import json
 import joblib
 import numpy as np
 from pathlib import Path
@@ -14,13 +14,25 @@ from app.services.feature_extractor import FeatureExtractor
 class MLModelService:
     """Service for loading and using trained ML model."""
     
-    def __init__(self, model_path: str = "models/crop_yield_model.pkl"):
+    def __init__(self, model_path: str = "models/crop_suitability_model.pkl", model_info_path: str = "models/model_info.json"):
         """Initialize ML model service."""
         self.model_path = Path(model_path)
+        self.model_info_path = Path(model_info_path)
         self.model = None
         self.feature_extractor = FeatureExtractor()
         self.is_loaded = False
+        self.feature_names = []
+        self._load_model_info()
     
+    def _load_model_info(self):
+        """Load model info from JSON file."""
+        if self.model_info_path.exists():
+            with open(self.model_info_path, "r") as f:
+                model_info = json.load(f)
+                self.feature_names = model_info.get('feature_names', [])
+        else:
+            print(f"Warning: Model info file not found at {self.model_info_path}")
+
     def load_model(self) -> bool:
         """
         Load trained model from file.
@@ -102,25 +114,23 @@ class MLModelService:
             current_month=current_month
         )
         
-        # Prepare feature array (order matters - must match training)
-        feature_names = [
-            'npk_match', 'ph_proximity', 'temp_suitability',
-            'rainfall_suitability', 'humidity_suitability', 'soil_match',
-            'historical_yield', 'season_alignment', 'regional_success'
-        ]
-        
-        feature_array = np.array([features[name] for name in feature_names])
-        
-        # Add additional features if model expects them (province, category encodings)
-        # This will be determined during model training
-        # For now, assume model only uses the 9 base features
-        
-        # Reshape for single prediction
-        feature_array = feature_array.reshape(1, -1)
+        # Prepare feature DataFrame (order and names must match training)
+        if not self.feature_names:
+            # This is a fallback, but the feature names should be loaded from model_info.json
+            print("Warning: Feature names not loaded. Using hardcoded feature names.")
+            self.feature_names = [
+                'npk_match', 'ph_proximity', 'temp_suitability',
+                'rainfall_suitability', 'humidity_suitability', 'soil_match',
+                'historical_yield', 'season_alignment', 'regional_success'
+            ]
+
+        # Create a pandas DataFrame with the correct feature names
+        feature_df = pd.DataFrame([features], columns=self.feature_names)
         
         try:
             # Predict suitability score
-            prediction = self.model.predict(feature_array)[0]
+            # Passing a DataFrame with feature names avoids the UserWarning
+            prediction = self.model.predict(feature_df)[0]
             
             # Ensure score is in 0-100 range
             prediction = max(0.0, min(100.0, prediction))

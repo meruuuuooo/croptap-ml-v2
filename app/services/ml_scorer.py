@@ -11,15 +11,15 @@ class MLScorer:
     
     # Feature weights (must sum to 1.0)
     FEATURE_WEIGHTS = {
-        'npk_match': 0.15,
-        'ph_proximity': 0.10,
-        'temp_suitability': 0.15,
-        'rainfall_suitability': 0.15,
-        'humidity_suitability': 0.10,
-        'soil_match': 0.10,
-        'historical_yield': 0.15,
-        'season_alignment': 0.05,
-        'regional_success': 0.05
+        'historical_yield': 0.260,
+        'ph_proximity': 0.205,
+        'temp_suitability': 0.166,
+        'humidity_suitability': 0.157,
+        'rainfall_suitability': 0.068,
+        'soil_match': 0.048,
+        'npk_match': 0.040,
+        'season_alignment': 0.034,
+        'regional_success': 0.022
     }
     
     def __init__(self):

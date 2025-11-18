@@ -5,25 +5,9 @@ A hybrid crop recommendation system that combines rule-based expert knowledge (4
 ## Features
 
 - **Rule-Based Scoring (40%)**: Expert knowledge-based scoring using NPK matching, pH validation, climate suitability, and soil type matching
-- **Feature-Based Scoring (30%)**: Weighted combination of 9 normalized features
-- **Trained ML Model (30%)**: Regression model trained on historical yield data to predict suitability scores
+- **Trained ML Model (60%)**: Regression model trained on historical yield data to predict suitability scores
 - **Hybrid Recommendation Engine**: Combines all three scoring methods for optimal recommendations
 - **REST API**: FastAPI endpoint for easy integration
-
-## Project Structure
-
-```
-croptap-ml-v2/
-├── app/                    # Main application code
-│   ├── main.py            # FastAPI application
-│   ├── models/            # Pydantic schemas
-│   ├── services/          # Business logic services
-│   └── utils/             # Utility functions
-├── notebooks/             # Jupyter notebooks for data exploration and model training
-├── models/                # Saved trained ML models
-├── raw_datasets/          # CSV data files
-└── requirements.txt       # Python dependencies
-```
 
 ## Setup
 
@@ -69,5 +53,5 @@ The system uses a two-tier scoring approach:
 1. **Rule-Based (50%)**: Expert rules for NPK, pH, climate, and soil matching (6 components)
 2. **ML Model (50%)**: Trained regression model predicting suitability scores using 9 features (includes historical yield, season alignment, regional success)
 
-Final hybrid score = (Rule × 0.5) + (ML Model × 0.5)
+Final hybrid score = (Rule × 0.4) + (ML Model × 0.6)
 
