@@ -92,34 +92,7 @@ class RecommendationEngine:
             rule_score = rule_result['total_score']
             rule_breakdown = rule_result['breakdown']
             
-            # Calculate ML model score (uses all 9 features including historical/seasonal/regional)
-            ml_model_score = self.ml_model.predict_score(
-                crop_data=crop_row,
-                farmer_nitrogen=nitrogen,
-                farmer_phosphorus=phosphorus,
-                farmer_potassium=potassium,
-                farmer_ph_min=ph_min,
-                farmer_ph_max=ph_max,
-                farmer_soil_type=soil_type,
-                avg_temperature=avg_temp,
-                avg_rainfall=avg_rainfall,
-                avg_humidity=avg_humidity,
-                historical_yield_data=historical_data,
-                current_month=current_month,
-                province=province,
-                crop_category=crop_row.get('Category', '')
-            )
-            
-            # Calculate hybrid score (40% rule-based, 60% ML model)
-            hybrid_score = (
-                rule_score * 0.40 +
-                ml_model_score * 0.60
-            )
-            
-            # Calculate confidence (agreement between rule-based and ML model)
-            confidence = max(0.0, 100.0 - abs(rule_score - ml_model_score))
-            
-            # Extract features for yield prediction (need feature values for factors)
+            # Extract features once (used by both ML model and yield prediction)
             features = self.feature_extractor.extract_features(
                 crop_data=crop_row,
                 farmer_nitrogen=nitrogen,
@@ -134,6 +107,34 @@ class RecommendationEngine:
                 historical_yield_data=historical_data,
                 current_month=current_month
             )
+            
+            # Calculate ML model score (pass pre-computed features)
+            ml_model_score = self.ml_model.predict_score(
+                crop_data=crop_row,
+                farmer_nitrogen=nitrogen,
+                farmer_phosphorus=phosphorus,
+                farmer_potassium=potassium,
+                farmer_ph_min=ph_min,
+                farmer_ph_max=ph_max,
+                farmer_soil_type=soil_type,
+                avg_temperature=avg_temp,
+                avg_rainfall=avg_rainfall,
+                avg_humidity=avg_humidity,
+                historical_yield_data=historical_data,
+                current_month=current_month,
+                province=province,
+                crop_category=crop_row.get('Category', ''),
+                features=features  # Pass pre-computed features
+            )
+            
+            # Calculate hybrid score (40% rule-based, 60% ML model)
+            hybrid_score = (
+                rule_score * 0.40 +
+                ml_model_score * 0.60
+            )
+            
+            # Calculate confidence (agreement between rule-based and ML model)
+            confidence = max(0.0, 100.0 - abs(rule_score - ml_model_score))
             
             # Identify risks
             risks = self._identify_risks(rule_breakdown, historical_data)

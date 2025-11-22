@@ -69,7 +69,8 @@ class MLModelService:
         historical_yield_data: Dict = None,
         current_month: int = None,
         province: str = None,
-        crop_category: str = None
+        crop_category: str = None,
+        features: Dict = None
     ) -> float:
         """
         Predict suitability score (0-100) using trained ML model.
@@ -89,6 +90,7 @@ class MLModelService:
             current_month: Optional current month
             province: Optional province name (for encoding)
             crop_category: Optional crop category (for encoding)
+            features: Optional pre-computed features dict (for performance)
         
         Returns:
             Predicted suitability score (0-100), or 50.0 if model not loaded
@@ -98,21 +100,22 @@ class MLModelService:
                 # Return neutral score if model not available
                 return 50.0
         
-        # Extract features
-        features = self.feature_extractor.extract_features(
-            crop_data=crop_data,
-            farmer_nitrogen=farmer_nitrogen,
-            farmer_phosphorus=farmer_phosphorus,
-            farmer_potassium=farmer_potassium,
-            farmer_ph_min=farmer_ph_min,
-            farmer_ph_max=farmer_ph_max,
-            farmer_soil_type=farmer_soil_type,
-            avg_temperature=avg_temperature,
-            avg_rainfall=avg_rainfall,
-            avg_humidity=avg_humidity,
-            historical_yield_data=historical_yield_data,
-            current_month=current_month
-        )
+        # Use pre-computed features if provided, otherwise extract them
+        if features is None:
+            features = self.feature_extractor.extract_features(
+                crop_data=crop_data,
+                farmer_nitrogen=farmer_nitrogen,
+                farmer_phosphorus=farmer_phosphorus,
+                farmer_potassium=farmer_potassium,
+                farmer_ph_min=farmer_ph_min,
+                farmer_ph_max=farmer_ph_max,
+                farmer_soil_type=farmer_soil_type,
+                avg_temperature=avg_temperature,
+                avg_rainfall=avg_rainfall,
+                avg_humidity=avg_humidity,
+                historical_yield_data=historical_yield_data,
+                current_month=current_month
+            )
         
         # Prepare feature DataFrame (order and names must match training)
         if not self.feature_names:

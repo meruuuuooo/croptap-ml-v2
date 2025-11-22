@@ -272,6 +272,251 @@ def merge_all_data_for_correlation(data_dir="raw_datasets", models_dir="models")
 
     return merged_data
 
+def extract_fertilizer_recommendation(nutrient_notes: str) -> str:
+    """
+    Extract fertilizer recommendation from nutrient notes field.
+    
+    Args:
+        nutrient_notes: Nutrient notes from crop data
+        
+    Returns:
+        Fertilizer recommendation string
+    """
+    if pd.isna(nutrient_notes) or not nutrient_notes:
+        return "Apply balanced NPK fertilizer as per soil test results."
+    return str(nutrient_notes).strip()
+
+
+def parse_ph_range(ph_str: str) -> tuple:
+    """
+    Parse pH range string into (min, max) tuple.
+    
+    Args:
+        ph_str: pH range string like "5.5-6.5" or "6.0"
+        
+    Returns:
+        Tuple of (min_ph, max_ph)
+    """
+    if pd.isna(ph_str) or not ph_str:
+        return (5.5, 7.5)  # Default neutral range
+    
+    ph_str = str(ph_str).strip()
+    
+    # Check for range format (e.g., "5.5-6.5")
+    if '-' in ph_str:
+        parts = ph_str.split('-')
+        try:
+            min_ph = float(parts[0].strip())
+            max_ph = float(parts[1].strip())
+            return (min_ph, max_ph)
+        except (ValueError, IndexError):
+            return (5.5, 7.5)
+    
+    # Single value
+    try:
+        ph = float(ph_str)
+        return (ph, ph)
+    except ValueError:
+        return (5.5, 7.5)
+
+
+def parse_soil_types(soil_type_str: str) -> list:
+    """
+    Parse soil type string into list of acceptable soil types.
+    
+    Args:
+        soil_type_str: Soil type string like "Loam, Clay" or "Sandy"
+        
+    Returns:
+        List of soil type strings
+    """
+    if pd.isna(soil_type_str) or not soil_type_str:
+        return []
+    
+    soil_type_str = str(soil_type_str).strip()
+    
+    # Split by common delimiters
+    for delimiter in [',', ';', '/']:
+        if delimiter in soil_type_str:
+            return [s.strip() for s in soil_type_str.split(delimiter) if s.strip()]
+    
+    return [soil_type_str]
+
+
+def normalize_npk_level(level: str) -> str:
+    """
+    Normalize NPK level string to standard format.
+    
+    Args:
+        level: NPK level string (e.g., "low", "LOW", "Low", "L")
+        
+    Returns:
+        Normalized string: "Low", "Medium", or "High"
+    """
+    if pd.isna(level) or not level:
+        return "Medium"
+    
+    level_str = str(level).strip().lower()
+    
+    # Map variations
+    if level_str in ['low', 'l', 'lo']:
+        return "Low"
+    elif level_str in ['medium', 'med', 'm', 'moderate']:
+        return "Medium"
+    elif level_str in ['high', 'h', 'hi']:
+        return "High"
+    
+    return "Medium"  # Default
+
+
+def parse_planting_period(period_str: str) -> tuple:
+    """
+    Parse planting period string into (start_month, end_month) tuple.
+    
+    Args:
+        period_str: Planting period string like "March-May" or "All season"
+        
+    Returns:
+        Tuple of (start_month, end_month) as integers (1-12), or None if all season
+    """
+    if pd.isna(period_str) or not period_str:
+        return None  # All season
+    
+    period_str = str(period_str).strip().lower()
+    
+    # Check for all season
+    if 'all' in period_str or 'year-round' in period_str or 'any' in period_str:
+        return None
+    
+    # Month name mapping
+    month_map = {
+        'jan': 1, 'january': 1,
+        'feb': 2, 'february': 2,
+        'mar': 3, 'march': 3,
+        'apr': 4, 'april': 4,
+        'may': 5,
+        'jun': 6, 'june': 6,
+        'jul': 7, 'july': 7,
+        'aug': 8, 'august': 8,
+        'sep': 9, 'sept': 9, 'september': 9,
+        'oct': 10, 'october': 10,
+        'nov': 11, 'november': 11,
+        'dec': 12, 'december': 12
+    }
+    
+    # Try to parse range (e.g., "March-May", "Mar-May")
+    for delimiter in ['-', 'to', '–']:
+        if delimiter in period_str:
+            parts = period_str.split(delimiter)
+            if len(parts) >= 2:
+                start = parts[0].strip()
+                end = parts[1].strip()
+                
+                # Find month numbers
+                start_month = None
+                end_month = None
+                
+                for month_name, month_num in month_map.items():
+                    if month_name in start:
+                        start_month = month_num
+                    if month_name in end:
+                        end_month = month_num
+                
+                if start_month and end_month:
+                    return (start_month, end_month)
+    
+    return None  # Can't parse, assume all season
+
+
+def is_in_planting_season(planting_period: tuple, current_month: int) -> bool:
+    """
+    Check if current month is within planting season.
+    
+    Args:
+        planting_period: Tuple of (start_month, end_month)
+        current_month: Current month (1-12)
+        
+    Returns:
+        True if in season, False otherwise
+    """
+    if planting_period is None:
+        return True  # All season
+    
+    start_month, end_month = planting_period
+    
+    # Handle wrapping (e.g., Nov-Jan)
+    if start_month <= end_month:
+        return start_month <= current_month <= end_month
+    else:
+        return current_month >= start_month or current_month <= end_month
+
+
+def calculate_distance_to_season(current_month: int, start_month: int, end_month: int) -> int:
+    """
+    Calculate months until next planting season.
+    
+    Args:
+        current_month: Current month (1-12)
+        start_month: Season start month (1-12)
+        end_month: Season end month (1-12)
+        
+    Returns:
+        Number of months until season starts
+    """
+    if start_month <= end_month:
+        # Normal range (e.g., Mar-May)
+        if current_month < start_month:
+            return start_month - current_month
+        elif current_month > end_month:
+            return (12 - current_month) + start_month
+        else:
+            return 0  # Currently in season
+    else:
+        # Wrapping range (e.g., Nov-Jan)
+        if start_month <= current_month <= 12:
+            return 0  # Currently in season
+        elif 1 <= current_month <= end_month:
+            return 0  # Currently in season
+        else:
+            return start_month - current_month
+
+def parse_yield_range(yield_str: str) -> tuple:
+    """
+    Parse yield range string into (min, max) tuple.
+    
+    Args:
+        yield_str: Yield string like "4.5-6.0 tons/ha" or "5.0"
+        
+    Returns:
+        Tuple of (min_yield, max_yield) in tons/ha
+    """
+    if pd.isna(yield_str) or not yield_str:
+        return (0.0, 0.0)
+    
+    yield_str = str(yield_str).strip().lower()
+    
+    # Remove units
+    yield_str = yield_str.replace('tons/ha', '').replace('ton/ha', '').replace('t/ha', '').strip()
+    
+    # Check for range format (e.g., "4.5-6.0")
+    if '-' in yield_str:
+        parts = yield_str.split('-')
+        try:
+            min_yield = float(parts[0].strip())
+            max_yield = float(parts[1].strip())
+            return (min_yield, max_yield)
+        except (ValueError, IndexError):
+            return (0.0, 0.0)
+    
+    # Single value
+    try:
+        val = float(yield_str)
+        return (val, val)
+    except ValueError:
+        return (0.0, 0.0)
+
+
+
 if __name__ == "__main__":
     # Example usage for correlation matrix data preparation
     merged_data = merge_all_data_for_correlation()

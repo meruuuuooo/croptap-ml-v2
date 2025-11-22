@@ -28,6 +28,7 @@ class DataLoader:
         self.climate_data = None
         self.unified_crop_db = None
         self.climate_averages = {}  # Cache for climate averages
+        self.historical_yield_cache = {}  # Cache for historical yield queries
         
     def load_all_data(self):
         """Load all CSV files into memory."""
@@ -185,6 +186,11 @@ class DataLoader:
         crop_name = crop_name.strip()
         province = province.strip().title()
         
+        # Check cache first
+        cache_key = f"{crop_name}_{province}"
+        if cache_key in self.historical_yield_cache:
+            return self.historical_yield_cache[cache_key]
+        
         # Filter historical data
         crop_data = self.historical_performance[
             (self.historical_performance['Crop'].str.strip() == crop_name) &
@@ -192,6 +198,7 @@ class DataLoader:
         ].copy()
         
         if len(crop_data) == 0:
+            self.historical_yield_cache[cache_key] = None
             return None
         
         # Calculate yield per hectare
@@ -206,17 +213,22 @@ class DataLoader:
         ]
         
         if len(crop_data) == 0:
+            self.historical_yield_cache[cache_key] = None
             return None
         
         avg_yield = crop_data['yield_per_ha'].mean()
         years_of_data = crop_data['Year'].nunique()
         total_records = len(crop_data)
         
-        return {
+        result = {
             'avg_yield_per_ha': avg_yield,
             'years_of_data': years_of_data,
             'total_records': total_records
         }
+        
+        # Cache the result
+        self.historical_yield_cache[cache_key] = result
+        return result
     
     def get_crop_by_name(self, crop_name: str) -> Optional[pd.Series]:
         """Get crop data by name from unified database."""
@@ -239,6 +251,7 @@ class DataLoader:
         
         return self.unified_crop_db.copy()
 
+    
 
 # Global instance (singleton pattern)
 _data_loader_instance = None

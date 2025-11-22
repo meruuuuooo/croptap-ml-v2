@@ -36,8 +36,8 @@ recommendation_engine = RecommendationEngine()
 async def root():
     """Root endpoint."""
     return {
-        "message": "Crop Recommendation System API",
-        "version": "1.0.0",
+        "message": "CropTAP - Crop Recommendation System using Data-Driven Algorithm API",
+        "version": "2.0.0",
         "endpoints": {
             "POST /recommend": "Get crop recommendations",
             "GET /health": "Health check"
@@ -62,18 +62,8 @@ async def health_check():
             "error": str(e)
         }
 
-
 @app.post("/recommend", response_model=RecommendationResponse)
 async def get_recommendations(request: RecommendationRequest):
-    """
-    Get crop recommendations based on farmer inputs.
-    
-    Args:
-        request: Recommendation request with location, soil, and climate data
-    
-    Returns:
-        Top 10 crop recommendations with detailed scores and explanations
-    """
     try:
         # Validate input
         data_loader = get_data_loader()
@@ -109,7 +99,6 @@ async def get_recommendations(request: RecommendationRequest):
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
-        # Log full traceback for debugging
         traceback.print_exc()
         raise HTTPException(
             status_code=500,

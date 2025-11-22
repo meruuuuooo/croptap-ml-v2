@@ -145,10 +145,6 @@ class RuleBasedScorer:
         farmer_ph_min: float,
         farmer_ph_max: float
     ) -> float:
-        """
-        Component 2: pH Range Validation (20 points).
-        Full score if farmer pH midpoint in crop range, otherwise penalize by distance.
-        """
         # Parse crop pH range
         crop_ph_str = crop_data.get('Soil pH Range', '')
         crop_ph_min, crop_ph_max = parse_ph_range(crop_ph_str)
