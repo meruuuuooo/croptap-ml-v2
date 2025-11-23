@@ -1,6 +1,7 @@
 """
 FastAPI application for crop recommendation system.
 """
+from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.models.schemas import (
@@ -38,11 +39,36 @@ async def root():
     return {
         "message": "CropTAP - Crop Recommendation System using Data-Driven Algorithm API",
         "version": "2.0.0",
+        "model": "RandomForestRegressor",
         "endpoints": {
             "POST /recommend": "Get crop recommendations",
+            "GET /crops": "Get all crops",
+            "GET /climate": "Get climate data by location",
             "GET /health": "Health check"
         }
     }
+
+
+@app.get("/crops")
+async def get_crops():
+    """Get all crops."""
+    try:
+        crops = recommendation_engine.get_crops()
+        return {"crops": crops}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/climate")
+async def get_climate(province: str, municipality: Optional[str] = None):
+    """Get climate data by location."""
+    try:
+        climate_data = recommendation_engine.get_climate_by_location(
+            province=province, municipality=municipality
+        )
+        return {"climate": climate_data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/health")
@@ -109,4 +135,3 @@ async def get_recommendations(request: RecommendationRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-

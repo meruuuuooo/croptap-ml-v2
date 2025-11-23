@@ -352,3 +352,21 @@ class RecommendationEngine:
         
         return insights
 
+    def get_crops(self) -> List[Dict]:
+        """Get all crops."""
+        all_crops = self.data_loader.get_all_crops()
+        # Replace NaN values with None for JSON serialization
+        all_crops = all_crops.fillna('')
+        return all_crops.to_dict('records')
+
+    def get_climate_by_location(
+        self, province: str, municipality: Optional[str]
+    ) -> Dict:
+        """Get climate data for a specific location."""
+        current_month = datetime.now().month
+        climate = self.data_loader.get_climate_averages(
+            province=province, municipality=municipality, month=current_month
+        )
+        # Replace NaN values with None for JSON serialization
+        return {k: (None if pd.isna(v) else v) for k, v in climate.items()}
+
