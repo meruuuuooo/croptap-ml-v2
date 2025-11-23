@@ -122,7 +122,7 @@ def validate_location(
 
 def validate_farmer_input(
     province: str,
-    municipality: str,
+    municipality: Optional[str],
     nitrogen: str,
     phosphorus: str,
     potassium: str,

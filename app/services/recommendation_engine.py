@@ -27,7 +27,7 @@ class RecommendationEngine:
     def generate_recommendations(
         self,
         province: str,
-        municipality: str,
+        municipality: Optional[str],
         nitrogen: str,
         phosphorus: str,
         potassium: str,
@@ -53,18 +53,19 @@ class RecommendationEngine:
         Returns:
             Dict with recommendations and metadata
         """
+        # Current month for season alignment
+        current_month = datetime.now().month
+
         # Get climate data
-        climate = self.data_loader.get_climate_averages(province, municipality)
+        climate = self.data_loader.get_climate_averages(
+            province=province, municipality=municipality, month=current_month
+        )
         avg_temp = climate['temperature']
         avg_rainfall = climate['rainfall']
         avg_humidity = climate['humidity']
         
         # Get all crops
         all_crops = self.data_loader.get_all_crops()
-        
-        # Current month for season alignment
-        current_month = datetime.now().month
-        
         recommendations = []
         
         # Loop through all crops
@@ -166,17 +167,30 @@ class RecommendationEngine:
             nutrient_notes = crop_row.get('nutrient_notes', '')
             fertilizer_rec = extract_fertilizer_recommendation(nutrient_notes)
             
+            # Handle NaN values for string fields
+            category = crop_row.get('Category', 'Unknown')
+            if pd.isna(category):
+                category = 'Unknown'
+            
+            planting_season = crop_row.get('Planting Period', 'Unknown')
+            if pd.isna(planting_season):
+                planting_season = 'Unknown'
+            
+            days_to_harvest = crop_row.get('Days to Harvest', 'Unknown')
+            if pd.isna(days_to_harvest):
+                days_to_harvest = 'Unknown'
+            
             recommendation = {
                 'crop_name': crop_name,
-                'category': crop_row.get('Category', 'Unknown'),
+                'category': str(category),
                 'hybrid_score': round(hybrid_score, 2),
                 'rule_score': round(rule_score, 2),
                 'ml_model_score': round(ml_model_score, 2),
                 'confidence': round(confidence, 2),
                 'expected_yield': expected_yield,
                 'risks': risks,
-                'planting_season': crop_row.get('Planting Period', 'Unknown'),
-                'days_to_harvest': crop_row.get('Days to Harvest', 'Unknown'),
+                'planting_season': str(planting_season),
+                'days_to_harvest': str(days_to_harvest),
                 'fertilizer_recommendation': fertilizer_rec,
                 'why_recommended': why_recommended,
                 'rule_breakdown': {

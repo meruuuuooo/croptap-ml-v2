@@ -1,105 +1,118 @@
 Crop_Name,Temp_Min_C,Temp_Max_C,Rainfall_Min_mm,Rainfall_Max_mm,Humidity_Min_Percent,Humidity_Max_Percent
-Alugbati (Malabar spinach),18,35,750,2000,60,90
-Ampalaya (Bitter gourd),18,35,750,2000,60,90
-Atis (Sugar apple),15,32,600,2500,60,95
+Alugbati,18,35,750,2000,60,90
+Ampalaya,18,35,750,2000,60,90
+Arrowroot,15,30,700,2000,60,90
+Asparagus,10,24,400,800,35,70
+Atis,15,32,600,2500,60,95
 Avocado,15,30,600,2000,60,90
-Balimbing (Starfruit),15,32,600,2500,60,95
-Saging (Banana),20,35,1000,2500,70,95
-Basiliko (Basil),10,30,500,2000,50,90
+Balanghoy,10,30,600,2000,60,90
+Balimbing,15,32,600,2500,60,95
+Basiliko,10,30,500,2000,50,90
+Bawang,10,30,600,2000,60,90
+Bayabas,15,32,600,2500,60,95
 Beets,5,25,400,1500,50,85
+Bell Pepper,15,32,600,1250,50,85
 Black beans,10,32,450,2000,50,90
-Rimas (Breadfruit),15,32,600,2500,60,95
 Broccoli,5,25,400,1500,50,85
-Repolyo (Cabbage),5,25,400,1500,50,85
-Calamansi (Philippine lime),20,35,1000,2500,70,95
-Camote (Sweet potato),10,30,600,2000,60,90
-Camote tops (Sweet potato tops),10,30,500,2000,50,90
+Calamansi,20,35,1000,2500,70,95
+Camote,10,30,600,2000,60,90
+Camote tops,10,30,500,2000,50,90
 Carrot,5,25,400,1500,50,85
-Kasoy (Cashew),15,32,600,2500,60,95
-Balanghoy (Cassava),10,30,600,2000,60,90
 Cauliflower,5,25,400,1500,50,85
-Seleri (Celery),5,25,400,1500,50,85
-Chayote (Mirliton),15,32,500,2000,50,90
-Chico (Sapodilla),15,32,600,2500,60,95
-Siling (Pepper),15,32,750,2000,60,90
-Pechay (Chinese cabbage),5,25,400,1500,50,85
+Chayote,15,32,500,2000,50,90
+Chico,15,32,600,2500,60,95
+Chili Pepper,15,32,600,1250,50,85
 Chives,10,30,500,2000,50,90
-Cilantro (Coriander),10,30,500,2000,50,90
-Sitaw (Cowpea),10,32,450,2000,50,90
-Pipino (Cucumber),15,32,500,2000,50,90
-Mais (Corn),10,32,500,2000,50,90
+Cilantro,10,30,500,2000,50,90
 Dragon fruit,20,35,1000,2500,70,95
-Durian (King of fruits),20,35,1000,2500,70,95
-Talong (Eggplant),15,32,750,2000,60,90
-Gabi (Taro),15,32,600,2500,60,95
-Garbanso (Chickpea),10,32,450,2000,50,90
-Bawang (Garlic),10,30,600,2000,60,90
-Lada (Ginger),10,30,600,2000,60,90
-Gisantes (Garden pea),10,32,450,2000,50,90
-Gotocola (Peppermint plant),15,32,600,2500,60,95
-Uvas (Grapes),15,32,600,2500,60,95
-Bayabas (Guava),15,32,600,2500,60,95
-Guyabano (Soursop),20,35,1000,2500,70,95
-Habitchuelas (Snap beans),10,32,450,2000,50,90
-Langka (Jackfruit),15,32,600,2500,60,95
-Kamansi (Breadnut),15,32,600,2500,60,95
-Kamias (Tamarind fruit),15,32,600,2500,60,95
-Kangkong (Swamp cabbage),10,30,500,2000,50,90
+Duhat,18,38,1500,2000,50,85
+Durian,20,35,1000,2500,70,95
+Gabi,15,32,600,2500,60,95
+Garbanso,10,32,450,2000,50,90
+Garlic,-25,38,200,800,30,50
+Gisantes,10,32,450,2000,50,90
+Gotocola,15,32,600,2500,60,95
+Guyabano,20,35,1000,2500,70,95
+Habitchuelas,10,32,450,2000,50,90
+Kamansi,15,32,600,2500,60,95
+Kamatis,15,32,750,2000,60,90
+Kamias,15,32,600,2500,60,95
+Kangkong,10,30,500,2000,50,90
+Kasoy,15,32,600,2500,60,95
 Kentucky beans,10,32,450,2000,50,90
 Kidney beans,10,32,450,2000,50,90
-Kulitis (Amaranth leaves),10,30,500,2000,50,90
-Lanzones (Longan),15,32,600,2500,60,95
-Letsugas (Lettuce),5,25,400,1500,50,85
-Upo (Bottle gourd),15,32,500,2000,50,90
-Luyang dilaw (Turmeric),10,30,600,2000,60,90
-Makopa (Water apple),15,32,600,2500,60,95
+Kulitis,10,30,500,2000,50,90
+Lada,10,30,600,2000,60,90
+Langka,15,32,600,2500,60,95
+Lanzones,15,32,600,2500,60,95
+Leeks,13,24,500,1200,50,85
+Letsugas,5,25,400,1500,50,85
+Luyang dilaw,10,30,600,2000,60,90
+Mais,10,32,500,2000,50,90
+Makopa,15,32,600,2500,60,95
 Mandarin,15,32,600,2500,60,95
 Mango,20,35,1000,2500,70,95
 Mangosteen,15,32,600,2500,60,95
-Marang (Breadfruit species),15,32,600,2500,60,95
+Mani,10,32,450,2000,50,90
+Marang,15,32,600,2500,60,95
 Melon,15,32,500,2000,50,90
-Pinya (Pineapple),20,35,1000,2500,70,95
 Mint,10,30,500,2000,50,90
 Miracle fruit,15,32,600,2500,60,95
-Mongo (Mungbean),10,32,450,2000,50,90
+Mongo,10,32,450,2000,50,90
 Mulberry,15,32,600,2500,60,95
 Mustard,15,32,600,2500,60,95
-Okra (Lady's finger),18,35,750,2000,60,90
-Sibuyas (Onion),15,30,600,2000,60,90
+Okra,18,35,750,2000,60,90
 Orange,20,35,1000,2500,70,95
 Oregano,10,30,500,2000,50,90
-Paminta (Black pepper),15,30,600,2000,60,90
+Pakwan,15,32,500,2000,50,90
+Paminta,15,30,600,2000,60,90
+Pandan,20,35,1000,2000,50,80
 Papaya,20,35,1000,2500,70,95
 Parsley,5,25,400,1500,50,85
 Passion fruit,15,32,600,2500,60,95
-Patani (Lima beans),10,32,450,2000,50,90
-Patola (Bottle gourd/Ridge gourd),15,32,500,2000,50,90
-Mani (Peanut),10,32,450,2000,50,90
-Peras (Pears),15,32,600,2500,60,95
+Patani,10,32,450,2000,50,90
+Patatas,10,30,600,2000,60,90
+Patola,15,32,500,2000,50,90
+Pechay,5,25,400,1500,50,85
+Peras,15,32,600,2500,60,95
 Persimmon,15,32,600,2500,60,95
-Pili (Pili nut),15,32,600,2500,60,95
+Pili,15,32,600,2500,60,95
 Pineapple fiber,15,32,600,2500,60,95
-Patatas (Potato),10,30,600,2000,60,90
+Pinya,20,35,1000,2500,70,95
+Pipino,15,32,500,2000,50,90
+Pomelo,13,30,900,2400,40,80
 Radish,5,25,400,1500,50,85
-Rambutan (Hairy fruit),20,35,1000,2500,70,95
+Rambutan,20,35,1000,2500,70,95
 Red beans,10,32,450,2000,50,90
-Saluyot (Egyptian spinach),10,30,500,2000,50,90
-Santol (Wild mangosteen),15,32,600,2500,60,95
-Sineguelas (June plum),15,32,600,2500,60,95
-Singkamas (Turnip),10,30,600,2000,60,90
-Sitao (Stringbeans),10,32,450,2000,50,90
+Repolyo,5,25,400,1500,50,85
+Rice,10,35,500,2500,70,95
+Rimas,15,32,600,2500,60,95
+Saging,20,35,1000,2500,70,95
+Saluyot,10,30,500,2000,50,90
+Santol,15,32,600,2500,60,95
+Seleri,5,25,400,1500,50,85
+Sibuyas,15,30,600,2000,60,90
+Sigarilyas,14,40,1500,2500,60,90
+Siling,15,32,750,2000,60,90
+Sineguelas,15,32,600,2500,60,95
+Singkamas,10,30,600,2000,60,90
+Sitao,10,32,450,2000,50,90
+Sitaw,10,32,450,2000,50,90
 Sorghum,10,32,500,2000,50,90
 Soybeans,10,32,500,2000,50,90
 Spinach,10,30,500,2000,50,90
 Spring onion,10,30,500,2000,50,90
-Starapple (Calamansi apple),15,30,600,2000,60,90
-Tubo (Sugarcane),10,32,500,2000,50,90
+Squash,15,30,300,900,40,85
+Starapple,15,30,600,2000,60,90
 Sweet peas,15,30,600,2000,60,90
-Tambis (Lansat fruit),15,32,600,2500,60,95
-Tanglad (Lemongrass),10,30,500,2000,50,90
-Kamatis (Tomato),15,32,750,2000,60,90
-Pakwan (Watermelon),15,32,500,2000,50,90
+Talong,15,32,750,2000,60,90
+Tambis,15,32,600,2500,60,95
+Tanglad,10,30,500,2000,50,90
+Tubo,10,32,500,2000,50,90
+Ubi,0,35,700,1500,50,90
+Upo,15,32,500,2000,50,90
+Uvas,15,32,600,2500,60,95
 Wonder beans,10,32,450,2000,50,90
 Yam beans,10,32,450,2000,50,90
-Zapote (Sapota fruit),15,32,600,2500,60,95
+Zapote,15,32,600,2500,60,95
 Zucchini,15,30,600,2000,60,90

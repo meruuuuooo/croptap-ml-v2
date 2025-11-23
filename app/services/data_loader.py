@@ -99,70 +99,79 @@ class DataLoader:
         print(f"Unified database created with {len(unified)} crops")
         
     def get_climate_averages(
-        self, 
-        province: str, 
+        self,
+        province: str,
+        month: Optional[int] = None,
         municipality: Optional[str] = None
     ) -> Dict[str, float]:
         """
-        Get 5-year average climate data (2020-2024) for location.
+        Get 5-year average climate data (2020-2024) for a location.
+        If month is provided, get monthly average. Otherwise, get annual average.
         Falls back to province-level if municipality not found.
-        
-        Returns:
-            Dict with 'temperature', 'rainfall', 'humidity'
         """
         # Normalize input
         province = province.strip().title()
         if municipality:
             municipality = municipality.strip().title()
-        
-        # Check cache
-        cache_key = f"{province}_{municipality or 'province'}"
+
+        # Update cache key to include month
+        cache_key = f"{province}_{municipality or 'province'}_{month or 'annual'}"
         if cache_key in self.climate_averages:
             return self.climate_averages[cache_key]
-        
-        # Filter for 2020-2024
+
+        # Filter for recent years
         recent_data = self.climate_data[
-            (self.climate_data['YEAR'] >= 2020) & 
+            (self.climate_data['YEAR'] >= 2020) &
             (self.climate_data['YEAR'] <= 2024)
         ].copy()
-        
+
         # Try municipality first
         if municipality:
             location_data = recent_data[
                 (recent_data['Province'].str.strip().str.title() == province) &
                 (recent_data['Municipality'].str.strip().str.title() == municipality)
             ]
-            
             if len(location_data) > 0:
-                result = self._calculate_climate_averages(location_data)
+                result = self._calculate_climate_averages(location_data, month)
                 self.climate_averages[cache_key] = result
                 return result
-        
+
         # Fallback to province-level
         province_data = recent_data[
             recent_data['Province'].str.strip().str.title() == province
         ]
-        
         if len(province_data) == 0:
-            raise ValueError(
-                f"No climate data found for province: {province}"
-            )
-        
-        result = self._calculate_climate_averages(province_data)
+            # If no data for the province, return null values
+            return {'temperature': None, 'rainfall': None, 'humidity': None}
+
+        result = self._calculate_climate_averages(province_data, month)
         self.climate_averages[cache_key] = result
         return result
-    
-    def _calculate_climate_averages(self, data: pd.DataFrame) -> Dict[str, float]:
-        """Calculate averages for temperature, rainfall, and humidity."""
+
+    def _calculate_climate_averages(
+        self,
+        data: pd.DataFrame,
+        month: Optional[int] = None
+    ) -> Dict[str, float]:
+        """
+        Calculate averages for temperature, rainfall, and humidity for a given month or annually.
+        """
+        month_map = {
+            1: 'JAN', 2: 'FEB', 3: 'MAR', 4: 'APR', 5: 'MAY', 6: 'JUN',
+            7: 'JUL', 8: 'AUG', 9: 'SEP', 10: 'OCT', 11: 'NOV', 12: 'DEC'
+        }
+        
+        column = month_map.get(month, 'ANNUAL')
+
         # Filter by parameter type
         temp_data = data[data['PARAMETER'] == 'T2M']
         rainfall_data = data[data['PARAMETER'] == 'PRECTOTCORR_SUM']
         humidity_data = data[data['PARAMETER'] == 'RH2M']
-        
-        # Calculate averages from ANNUAL column
-        avg_temp = temp_data['ANNUAL'].mean() if len(temp_data) > 0 else None
-        avg_rainfall = rainfall_data['ANNUAL'].mean() if len(rainfall_data) > 0 else None
-        avg_humidity = humidity_data['ANNUAL'].mean() if len(humidity_data) > 0 else None
+
+        # Calculate averages from the specified column
+        avg_temp = temp_data[column].mean() if len(temp_data) > 0 and column in temp_data else None
+        avg_rainfall = rainfall_data[column].mean() if len(rainfall_data) > 0 and column in rainfall_data else None
+        avg_humidity = humidity_data[column].mean() if len(humidity_data) > 0 and column in humidity_data else None
         
         return {
             'temperature': avg_temp,

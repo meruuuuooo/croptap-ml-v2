@@ -1,57 +1,52 @@
-# Hybrid Crop Recommendation System
+# CropTap ML v3: Hybrid Crop Recommendation System
 
-A hybrid crop recommendation system that combines rule-based expert knowledge (40%) with machine learning (60%) to recommend optimal crops for Filipino farmers based on soil conditions, location climate, and historical performance data.
+This project implements a hybrid crop recommendation system for Filipino farmers, combining rule-based logic with a machine learning model. It provides optimal crop recommendations via a FastAPI-based REST API, considering soil conditions, climate, and historical data.
 
-## Features
+The recommendation engine takes farmer inputs (province, municipality, soil NPK levels, pH, and soil type) and outputs a ranked list of the top 10 most suitable crops. Each recommendation includes a hybrid score (40% rule-based, 60% ML model), confidence, expected yield, and potential risks.
 
-- **Rule-Based Scoring (40%)**: Expert knowledge-based scoring using NPK matching, pH validation, climate suitability, and soil type matching
-- **Trained ML Model (60%)**: Regression model trained on historical yield data to predict suitability scores
-- **Hybrid Recommendation Engine**: Combines all three scoring methods for optimal recommendations
-- **REST API**: FastAPI endpoint for easy integration
+## Getting Started
 
-## Setup
+Follow these steps to set up, train the model, and run the API server.
 
-1. Install dependencies:
+### 1. Install Dependencies
+
+First, install all required Python packages:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Train the ML model (run notebooks in order):
-   - `01_data_exploration.ipynb`
-   - `02_feature_engineering.ipynb`
-   - `03_model_training.ipynb`
-   - `04_model_evaluation.ipynb`
+### 2. Train the Machine Learning Model
 
-3. Start the API server:
+Before starting the API, the machine learning model must be trained. Navigate to the `notebooks/` directory and execute the following Jupyter notebooks in order:
+
+1.  `01_data_exploration.ipynb`
+2.  `02_feature_engineering.ipynb`
+3.  `03_model_training.ipynb`
+4.  `04_model_evaluation.ipynb`
+5.  `05_model_deep_dive.ipynb` (Newly added for comprehensive model analysis)
+
+This process will generate the `crop_suitability_model.pkl` file in the `models/` directory, which is essential for the API.
+
+### 3. Run the API Server
+
+Once the model is trained and the `crop_suitability_model.pkl` file exists, you can start the FastAPI server:
+
 ```bash
 uvicorn app.main:app --reload
 ```
 
-## API Usage
+The API will be accessible at `http://127.0.0.1:8000`. You can view the interactive API documentation at `http://127.0.0.1:8000/docs`.
 
-### POST /recommend
+## Project Structure
 
-Request body:
-```json
-{
-  "province": "Cagayan",
-  "municipality": "Tuguegarao",
-  "nitrogen": "Medium",
-  "phosphorus": "High",
-  "potassium": "Medium",
-  "ph_min": 6.0,
-  "ph_max": 6.8,
-  "soil_type": "Loam"
-}
-```
+The project follows a modular and service-oriented architecture:
 
-Response: Top 10 crop recommendations with detailed scores, risks, and explanations.
-
-## Development
-
-The system uses a two-tier scoring approach:
-1. **Rule-Based (50%)**: Expert rules for NPK, pH, climate, and soil matching (6 components)
-2. **ML Model (50%)**: Trained regression model predicting suitability scores using 9 features (includes historical yield, season alignment, regional success)
-
-Final hybrid score = (Rule × 0.4) + (ML Model × 0.6)
-
+*   **`app/`**: Main application directory.
+    *   **`main.py`**: FastAPI application entry point.
+    *   **`models/`**: Pydantic schemas for API request/response validation.
+    *   **`services/`**: Business logic for the recommendation engine, data loading, scoring, and prediction.
+    *   **`utils/`**: Utility functions for data processing and validation.
+*   **`notebooks/`**: Jupyter notebooks for data exploration, feature engineering, model training, and evaluation.
+*   **`raw_datasets/`**: Raw CSV data for training and recommendations.
+*   **`models/`**: Trained machine learning models and related information.

@@ -1,105 +1,118 @@
-Crop,Category,Soil pH Range,Soil Type,Planting Period,Days to Harvest,Yield Per Hectare
-Alugbati (Malabar spinach),Vegetables,6.0-7.0,"Sandy loam, Loam, Clay loam",All season,30-45 DAH,2-4 tons
-Ampalaya (Bitter gourd),Fruit Vegetables,6.0-6.7,"Sandy loam, Clay loam",All season,60-75 DAP,8-15 tons
-Atis (Sugar apple),Fruit Trees,5.5-6.5,"Sandy loam, Loam",Jun-Sep,60-90 DAH,5-8 tons
-Avocado,Fruit Trees,6.0-8.0,"Sandy loam, Clay loam",All season,500-720 DAP,9.6 tons
-Balimbing (Starfruit),Fruit Trees,5.5-6.5,"Sandy loam, Loam",All season,180-210 DAH,4-6 tons
-Saging (Banana),Fruits,6.0-7.5,Loam,All season,270-360 DAH,10-15 tons
-Basiliko (Basil),Vegetables,5.5-6.5,"Sandy loam, Loam, Clay loam",All season,40-60 DAH,1-2 tons
-Beets,Root Crops,6.5-7.0,"Loam, Clay loam",Oct-Mar,60-90 DAH,15-20 tons
-Black beans,Vegetables,6.0-7.0,"Sandy loam, Loam",May-Oct,60-90 DAH,1.5-2 tons
-Rimas (Breadfruit),Fruit Trees,6.1-7.4,"Sandy loam, Clay loam",All season,180-270 DAH,8-12 tons
-Broccoli,Vegetables,6.0-7.2,"Sandy loam, Loam, Clay loam",Oct-Mar,60-90 DAH,8-12 tons
-Repolyo (Cabbage),Vegetables,6.0-7.5,"Loam, Clay loam",Oct-Mar,55-120 DAH,20-30 tons
-Calamansi (Philippine lime),Fruit Trees,5.5-7.5,"Sandy loam, Clay loam",All season,180-240 DAH,5-8 tons
-Camote (Sweet potato),Root Crops,5.0-7.0,"Sandy loam, Loam",May-Aug,120-180 DAH,12-18 tons
-Camote tops (Sweet potato tops),Vegetables,5.0-7.0,"Sandy loam, Loam",May-Aug,30-45 DAH,2-3 tons
-Carrot,Root Crops,5.5-7.0,Sandy loam,Oct-Mar,70-90 DAH,15-20 tons
-Kasoy (Cashew),Fruit Trees,5.5-7.0,"Sandy loam, Clay loam",All season,720-1080 DAH,2-3 tons
-Balanghoy (Cassava),Root Crops,5.5-7.0,Sandy loam,May-Aug,270-360 DAH,15-25 tons
-Cauliflower,Vegetables,5.5-7.5,Loam,Oct-Mar,70-100 DAH,8-15 tons
-Seleri (Celery),Vegetables,6.0-7.0,Sandy loam,Oct-Feb,80-120 DAH,10-15 tons
-Chayote (Mirliton),Fruit Vegetables,6.0-7.5,"Clay loam, Silt loam",May-Aug,150-180 DAH,15-25 tons
-Chico (Sapodilla),Fruit Trees,6.0-7.5,"Sandy loam, Loam",All season,240-300 DAH,8-12 tons
-Siling (Pepper),Fruit Vegetables,5.8-6.8,Sandy loam,May-Dec,60-90 DAH,5-10 tons
-Pechay (Chinese cabbage),Vegetables,6.0-6.5,"Sandy loam, Loam, Clay loam",May-Aug,40-50 DAH,8-12 tons
-Chives,Vegetables,6.0-7.0,"Sandy loam, Loam",All season,60-90 DAH,2-3 tons
-Cilantro (Coriander),Vegetables,5.5-6.7,"Loam, Clay loam",All season,45-60 DAH,1.5-2 tons
-Sitaw (Cowpea),Vegetables,5.0-6.5,"Silt loam, Loam",May-Oct,50-70 DAH,1.5-3 tons
-Pipino (Cucumber),Fruit Vegetables,6.0-8.0,Sandy loam,All season,50-70 DAH,8-12 tons
-Mais (Corn),Corn,6.0-8.0,"Silt loam, Loam",April-Jun,90-120 DAH,2-4 tons
-Dragon fruit,Fruits,5.5-6.5,"Sandy loam, Clay loam",All season,300-360 DAH,4-15 tons
-Durian (King of fruits),Fruit Trees,5.5-6.5,"Deep loam, Sandy loam",All season,720-1080 DAH,3-5 tons
-Talong (Eggplant),Fruit Vegetables,6.0-7.5,Sandy loam,All season,90-120 DAH,9-15 tons
-Gabi (Taro),Root Crops,6.0-7.0,"Clay loam, Loam",May-Aug,240-270 DAH,15-20 tons
-Garbanso (Chickpea),Vegetables,6.0-7.5,"Sandy loam, Loam",Oct-Mar,120-150 DAH,1.5-2 tons
-Bawang (Garlic),Vegetables,5.4-6.8,Loam,Oct-Dec,120-150 DAH,2-3 tons
-Lada (Ginger),Root Crops,5.5-6.5,Loam,April-Jun,240-270 DAH,15-20 tons
-Gisantes (Garden pea),Vegetables,6.0-7.5,"Silt loam, Clay loam",Oct-Jan,60-70 DAH,1.5-2.5 tons
-Gotocola (Peppermint plant),Vegetables,5.5-7.0,"Sandy loam, Loam",All season,45-60 DAH,2-3 tons
-Uvas (Grapes),Fruits,6.0-7.0,"Sandy loam, Loam",All season,150-180 DAH,8-12 tons
-Bayabas (Guava),Fruit Trees,5.5-6.5,"Sandy loam, Loam",All season,240-300 DAH,10-15 tons
-Guyabano (Soursop),Fruit Trees,5.5-7.0,"Sandy loam, Clay loam",All season,270-360 DAH,12-20 tons
-Habitchuelas (Snap beans),Vegetables,5.5-6.5,Sandy loam,May-Oct,50-60 DAH,2-4 tons
-Langka (Jackfruit),Fruit Trees,5.5-6.5,"Sandy loam, Clay loam",All season,240-360 DAH,12-20 tons
-Kamansi (Breadnut),Fruit Trees,6.0-7.0,"Deep loam, Sandy clay loam",All season,180-270 DAH,5-8 tons
-Kamias (Tamarind fruit),Fruit Trees,5.5-7.0,"Sandy loam, Clay loam",All season,360-720 DAH,5-10 tons
-Kangkong (Swamp cabbage),Vegetables,5.5-7.0,Sandy loam,All season,30-45 DAH,3-5 tons
-Kentucky beans,Vegetables,5.5-6.5,"Sandy loam, Loam",May-Aug,60-90 DAH,1.5-2.5 tons
-Kidney beans,Vegetables,6.0-7.0,"Loam, Clay loam",May-Aug,90-120 DAH,1-2 tons
-Kulitis (Amaranth leaves),Vegetables,6.0-6.5,"Loam, Clay loam",All season,30-45 DAH,2-3 tons
-Lanzones (Longan),Fruit Trees,5.5-6.5,"Deep loam, Sandy loam",July-Sep,240-300 DAH,4-8 tons
-Letsugas (Lettuce),Vegetables,5.5-7.0,"Silt loam, Loam, Clay loam",Oct-Mar,40-60 DAH,12-18 tons
-Upo (Bottle gourd),Fruit Vegetables,5.5-7.0,Sandy loam,All season,60-90 DAH,8-15 tons
-Luyang dilaw (Turmeric),Root Crops,5.5-7.5,"Loam, Clay loam",April-Jun,240-300 DAH,8-10 tons
-Makopa (Water apple),Fruit Trees,5.5-7.0,"Sandy loam, Loam",All season,180-240 DAH,6-10 tons
-Mandarin,Fruit Trees,5.5-8.0,"Sandy loam, Clay loam",All season,240-300 DAH,8-12 tons
-Mango,Fruit Trees,5.5-7.5,Loam,May-Sep,150-180 DAH,10-20 tons
-Mangosteen,Fruit Trees,5.0-6.5,"Deep clay loam, Loam",July-Sep,360-480 DAH,8-12 tons
-Marang (Breadfruit species),Fruit Trees,6.0-7.0,"Deep loam, Sandy clay loam",All season,180-270 DAH,5-8 tons
-Melon,Fruits,5.5-6.5,"Sandy loam, Loam",April-Aug,80-120 DAH,12-18 tons
-Pinya (Pineapple),Fruits,5.0-6.5,"Sandy loam, Loam",All season,540-600 DAH,25-40 tons
-Mint,Vegetables,6.0-7.0,"Loam, Clay loam",All season,60-90 DAH,2-3 tons
-Miracle fruit,Fruit Trees,5.5-7.0,"Sandy loam, Loam",All season,360-540 DAH,3-5 tons
-Mongo (Mungbean),Vegetables,5.5-6.5,Loam,July-Sep,65-72 DAH,1-1.5 tons
-Mulberry,Fruit Trees,5.5-7.5,"Sandy loam, Loam",All season,180-240 DAH,8-12 tons
-Mustard,Vegetables,5.8-7.5,Sandy loam,May-Oct,40-50 DAH,5-8 tons
-Okra (Lady's finger),Fruit Vegetables,6.0-8.0,Sandy loam,May-Oct,50-60 DAH,5-8 tons
-Sibuyas (Onion),Vegetables,5.8-6.5,Sandy loam,Oct-Dec,120-150 DAH,10-15 tons
-Orange,Fruit Trees,5.0-7.0,"Sandy loam, Clay loam",All season,240-300 DAH,8-15 tons
-Oregano,Vegetables,6.0-7.5,"Sandy loam, Loam",All season,60-90 DAH,1.5-2 tons
-Paminta (Black pepper),Plantation Crops,5.5-6.5,Sandy loam,All season,180-240 DAH,1.5-3 tons
-Papaya,Fruits,5.8-7.0,Loam,All season,240-300 DAH,20-30 tons
-Parsley,Vegetables,5.0-7.0,"Sandy loam, Loam",All season,70-90 DAH,2-3 tons
-Passion fruit,Fruits,5.5-7.0,"Sandy loam, Clay loam",All season,180-240 DAH,8-12 tons
-Patani (Lima beans),Vegetables,5.5-6.5,Sandy loam,May-Oct,80-100 DAH,1.5-2.5 tons
-Patola (Bottle gourd/Ridge gourd),Fruit Vegetables,6.0-7.0,"Sandy loam, Loam",All season,60-70 DAH,10-15 tons
-Mani (Peanut),Vegetables,6.0-7.0,Sandy loam,May-Oct,90-110 DAH,1.5-2.5 tons
-Peras (Pears),Fruit Trees,6.0-7.5,"Sandy loam, Loam",Oct-Mar,120-180 DAH,10-15 tons
-Persimmon,Fruit Trees,6.0-7.5,"Loam, Clay loam",All season,180-240 DAH,8-12 tons
-Pili (Pili nut),Fruit Trees,5.5-7.0,"Deep clay loam, Loam",All season,720-1080 DAH,2-4 tons
-Pineapple fiber,Plantation Crops,5.0-6.5,"Sandy loam, Loam",All season,540-600 DAH,2-3 tons
-Patatas (Potato),Root Crops,4.8-6.5,"Sandy loam, Loam",Oct-Dec,90-120 DAH,15-25 tons
-Radish,Root Crops,5.2-6.7,Sandy loam,Oct-Feb,30-45 DAH,8-12 tons
-Rambutan (Hairy fruit),Fruit Trees,5.5-6.5,Loam,May-Sep,240-300 DAH,6-10 tons
-Red beans,Vegetables,6.0-7.0,"Loam, Clay loam",May-Aug,90-120 DAH,1-2 tons
-Saluyot (Egyptian spinach),Vegetables,5.5-7.0,"Sandy loam, Loam",All season,30-45 DAH,2-3 tons
-Santol (Wild mangosteen),Fruit Trees,5.5-7.0,"Clay loam, CLAY",July-Sep,180-270 DAH,8-12 tons
-Sineguelas (Jun plum),Fruit Trees,5.5-7.0,"Sandy loam, Loam",Mar-July,120-180 DAH,5-8 tons
-Singkamas (jicama),Root Crops,5.5-7.0,"Sandy loam, Loam",Mar-May,80-120 DAH,10-15 tons
-Sitao (Stringbeans),Vegetables,5.0-6.0,"Loam, Clay loam",May-Aug,60-80 DAH,2-4 tons
-Sorghum,Corn,6.0-7.5,Sandy loam,April-July,90-120 DAH,2-3 tons
-Soybeans,Vegetables,6.0-7.0,"Loam, Clay loam",May-Aug,90-120 DAH,1.5-2.5 tons
-Spinach,Vegetables,6.5-7.0,Sandy loam,Oct-Mar,40-50 DAH,5-8 tons
-Spring onion,Vegetables,6.0-7.0,"Sandy loam, Loam",All season,60-90 DAH,3-5 tons
-Starapple (Calamansi apple),Fruit Trees,5.5-7.0,"Sandy loam, Clay loam",All season,240-300 DAH,8-12 tons
-Tubo (Sugarcane),Plantation Crops,6.0-8.0,Clay loam,All season,365-540 DAH,50-80 tons
-Sweet peas,Vegetables,6.0-7.5,"Silt loam, Loam",Oct-Jan,60-70 DAH,1.5-2.5 tons
-Tambis (Lansat fruit),Fruit Trees,5.5-7.0,"Sandy loam, Deep loam",Jun-Aug,180-240 DAH,4-6 tons
-Tanglad (Lemongrass),Grasses,6.0-7.5,"Sandy loam, Loam",All season,120-180 DAH,3-5 tons
-Kamatis (Tomato),Fruit Vegetables,4.5-6.5,"Sandy loam, Loam",Jan-May,55-90 DAH,20-30 tons
-Pakwan (Watermelon),Fruits,6.0-7.0,Sandy loam,April-Aug,75-90 DAH,25-40 tons
-Wonder beans,Vegetables,5.5-6.5,"Sandy loam, Loam",May-Aug,60-90 DAH,2-3 tons
-Yam beans,Vegetables,6.0-7.0,"Silt loam, Silt loam",All season,150-180 DAH,3-5 tons
-Zapote (Sapota fruit),Fruit Trees,6.0-7.5,"Sandy loam, Clay loam",Aug-Dec,270-360 DAH,10-15 tons
-Zucchini,Fruit Vegetables,5.5-7.0,"Sandy loam, Loam",All season,50-65 DAH,12-18 tons
+Crop,Category,Soil Type,Planting Period,Yield Per Hectare,Soil_pH_Min,Soil_pH_Max,Days_to_Harvest_Min,Days_to_Harvest_Max
+Alugbati,Vegetables,"Sandy loam, Loam, Clay loam",All season,2-4 tons,6.0,7.0,30.0,45.0
+Ampalaya,Fruit Vegetables,"Sandy loam, Clay loam",All season,8-15 tons,6.0,6.7,60.0,75.0
+Arrowroot,,"Loamy, Silty loam",All season (with uniform rainfall),20-29 tons,5.5,7.0,240.0,360.0
+Asparagus,,"Sandy loam, Well-drained",Spring/Year-round,2-3 tons,6.5,7.5,730.0,1095.0
+Atis,Fruit Trees,"Sandy loam, Loam",Jun-Sep,5-8 tons,5.5,6.5,60.0,90.0
+Avocado,Fruit Trees,"Sandy loam, Clay loam",All season,9.6 tons,6.0,8.0,500.0,720.0
+Balanghoy,Root Crops,Sandy loam,May-Aug,15-25 tons,5.5,7.0,270.0,360.0
+Balimbing,Fruit Trees,"Sandy loam, Loam",All season,4-6 tons,5.5,6.5,180.0,210.0
+Basiliko,Vegetables,"Sandy loam, Loam, Clay loam",All season,1-2 tons,5.5,6.5,40.0,60.0
+Bawang,Vegetables,Loam,Oct-Dec,2-3 tons,5.4,6.8,120.0,150.0
+Bayabas,Fruit Trees,"Sandy loam, Loam",All season,10-15 tons,5.5,6.5,240.0,300.0
+Beets,Root Crops,"Loam, Clay loam",Oct-Mar,15-20 tons,6.5,7.0,60.0,90.0
+Bell Pepper,,"Sandy loam, Loam, Clay loam",Oct-Dec (lowland); Year-round (highland),10-14 tons,5.8,6.8,80.0,100.0
+Black beans,Vegetables,"Sandy loam, Loam",May-Oct,1.5-2 tons,6.0,7.0,60.0,90.0
+Broccoli,Vegetables,"Sandy loam, Loam, Clay loam",Oct-Mar,8-12 tons,6.0,7.2,60.0,90.0
+Calamansi,Fruit Trees,"Sandy loam, Clay loam",All season,5-8 tons,5.5,7.5,180.0,240.0
+Camote,Root Crops,"Sandy loam, Loam",May-Aug,12-18 tons,5.0,7.0,120.0,180.0
+Camote tops,Vegetables,"Sandy loam, Loam",May-Aug,2-3 tons,5.0,7.0,30.0,45.0
+Carrot,Root Crops,Sandy loam,Oct-Mar,15-20 tons,5.5,7.0,70.0,90.0
+Cauliflower,Vegetables,Loam,Oct-Mar,8-15 tons,5.5,7.5,70.0,100.0
+Chayote,Fruit Vegetables,"Clay loam, Silt loam",May-Aug,15-25 tons,6.0,7.5,150.0,180.0
+Chico,Fruit Trees,"Sandy loam, Loam",All season,8-12 tons,6.0,7.5,240.0,300.0
+Chili Pepper,,"Sandy loam, Loam, Clay loam",Oct-Dec,10-15 tons,5.8,6.8,80.0,100.0
+Chives,Vegetables,"Sandy loam, Loam",All season,2-3 tons,6.0,7.0,60.0,90.0
+Cilantro,Vegetables,"Loam, Clay loam",All season,1.5-2 tons,5.5,6.7,45.0,60.0
+Dragon fruit,Fruits,"Sandy loam, Clay loam",All season,4-15 tons,5.5,6.5,300.0,360.0
+Duhat,,"Sandy loam, Clay loam",Year-round,16-15 tons,5.5,7.0,1095.0,1460.0
+Durian,Fruit Trees,"Deep loam, Sandy loam",All season,3-5 tons,5.5,6.5,720.0,1080.0
+Gabi,Root Crops,"Clay loam, Loam",May-Aug,15-20 tons,6.0,7.0,240.0,270.0
+Garbanso,Vegetables,"Sandy loam, Loam",Oct-Mar,1.5-2 tons,6.0,7.5,120.0,150.0
+Garlic,,"Sandy loam, Silt loam, Clay loam",Oct-Nov to Dec,4.9-9.3 tons,5.4,6.8,,
+Gisantes,Vegetables,"Silt loam, Clay loam",Oct-Jan,1.5-2.5 tons,6.0,7.5,60.0,70.0
+Gotocola,Vegetables,"Sandy loam, Loam",All season,2-3 tons,5.5,7.0,45.0,60.0
+Guyabano,Fruit Trees,"Sandy loam, Clay loam",All season,12-20 tons,5.5,7.0,270.0,360.0
+Habitchuelas,Vegetables,Sandy loam,May-Oct,2-4 tons,5.5,6.5,50.0,60.0
+Kamansi,Fruit Trees,"Deep loam, Sandy clay loam",All season,5-8 tons,6.0,7.0,180.0,270.0
+Kamatis,Fruit Vegetables,"Sandy loam, Loam",Jan-May,20-30 tons,4.5,6.5,55.0,90.0
+Kamias,Fruit Trees,"Sandy loam, Clay loam",All season,5-10 tons,5.5,7.0,360.0,720.0
+Kangkong,Vegetables,Sandy loam,All season,3-5 tons,5.5,7.0,30.0,45.0
+Kasoy,Fruit Trees,"Sandy loam, Clay loam",All season,2-3 tons,5.5,7.0,720.0,1080.0
+Kentucky beans,Vegetables,"Sandy loam, Loam",May-Aug,1.5-2.5 tons,5.5,6.5,60.0,90.0
+Kidney beans,Vegetables,"Loam, Clay loam",May-Aug,1-2 tons,6.0,7.0,90.0,120.0
+Kulitis,Vegetables,"Loam, Clay loam",All season,2-3 tons,6.0,6.5,30.0,45.0
+Lada,Root Crops,Loam,April-Jun,15-20 tons,5.5,6.5,240.0,270.0
+Langka,Fruit Trees,"Sandy loam, Clay loam",All season,12-20 tons,5.5,6.5,240.0,360.0
+Lanzones,Fruit Trees,"Deep loam, Sandy loam",July-Sep,4-8 tons,5.5,6.5,240.0,300.0
+Leeks,,Sandy loam with humus,Cool season,12-40 tons,6.5,7.0,150.0,200.0
+Letsugas,Vegetables,"Silt loam, Loam, Clay loam",Oct-Mar,12-18 tons,5.5,7.0,40.0,60.0
+Luyang dilaw,Root Crops,"Loam, Clay loam",April-Jun,8-10 tons,5.5,7.5,240.0,300.0
+Mais,Corn,"Silt loam, Loam",April-Jun,2-4 tons,6.0,8.0,90.0,120.0
+Makopa,Fruit Trees,"Sandy loam, Loam",All season,6-10 tons,5.5,7.0,180.0,240.0
+Mandarin,Fruit Trees,"Sandy loam, Clay loam",All season,8-12 tons,5.5,8.0,240.0,300.0
+Mango,Fruit Trees,Loam,May-Sep,10-20 tons,5.5,7.5,150.0,180.0
+Mangosteen,Fruit Trees,"Deep clay loam, Loam",July-Sep,8-12 tons,5.0,6.5,360.0,480.0
+Mani,Vegetables,Sandy loam,May-Oct,1.5-2.5 tons,6.0,7.0,90.0,110.0
+Marang,Fruit Trees,"Deep loam, Sandy clay loam",All season,5-8 tons,6.0,7.0,180.0,270.0
+Melon,Fruits,"Sandy loam, Loam",April-Aug,12-18 tons,5.5,6.5,80.0,120.0
+Mint,Vegetables,"Loam, Clay loam",All season,2-3 tons,6.0,7.0,60.0,90.0
+Miracle fruit,Fruit Trees,"Sandy loam, Loam",All season,3-5 tons,5.5,7.0,360.0,540.0
+Mongo,Vegetables,Loam,July-Sep,1-1.5 tons,5.5,6.5,65.0,72.0
+Mulberry,Fruit Trees,"Sandy loam, Loam",All season,8-12 tons,5.5,7.5,180.0,240.0
+Mustard,Vegetables,Sandy loam,May-Oct,5-8 tons,5.8,7.5,40.0,50.0
+Okra,Fruit Vegetables,Sandy loam,May-Oct,5-8 tons,6.0,8.0,50.0,60.0
+Orange,Fruit Trees,"Sandy loam, Clay loam",All season,8-15 tons,5.0,7.0,240.0,300.0
+Oregano,Vegetables,"Sandy loam, Loam",All season,1.5-2 tons,6.0,7.5,60.0,90.0
+Pakwan,Fruits,Sandy loam,April-Aug,25-40 tons,6.0,7.0,75.0,90.0
+Paminta,Plantation Crops,Sandy loam,All season,1.5-3 tons,5.5,6.5,180.0,240.0
+Pandan,,"Loamy, Moderately fertile",Year-round,6-39 tons,6.5,7.5,180.0,240.0
+Papaya,Fruits,Loam,All season,20-30 tons,5.8,7.0,240.0,300.0
+Parsley,Vegetables,"Sandy loam, Loam",All season,2-3 tons,5.0,7.0,70.0,90.0
+Passion fruit,Fruits,"Sandy loam, Clay loam",All season,8-12 tons,5.5,7.0,180.0,240.0
+Patani,Vegetables,Sandy loam,May-Oct,1.5-2.5 tons,5.5,6.5,80.0,100.0
+Patatas,Root Crops,"Sandy loam, Loam",Oct-Dec,15-25 tons,4.8,6.5,90.0,120.0
+Patola,Fruit Vegetables,"Sandy loam, Loam",All season,10-15 tons,6.0,7.0,60.0,70.0
+Pechay,Vegetables,"Sandy loam, Loam, Clay loam",May-Aug,8-12 tons,6.0,6.5,40.0,50.0
+Peras,Fruit Trees,"Sandy loam, Loam",Oct-Mar,10-15 tons,6.0,7.5,120.0,180.0
+Persimmon,Fruit Trees,"Loam, Clay loam",All season,8-12 tons,6.0,7.5,180.0,240.0
+Pili,Fruit Trees,"Deep clay loam, Loam",All season,2-4 tons,5.5,7.0,720.0,1080.0
+Pineapple fiber,Plantation Crops,"Sandy loam, Loam",All season,2-3 tons,5.0,6.5,540.0,600.0
+Pinya,Fruits,"Sandy loam, Loam",All season,25-40 tons,5.0,6.5,540.0,600.0
+Pipino,Fruit Vegetables,Sandy loam,All season,8-12 tons,6.0,8.0,50.0,70.0
+Pomelo,,"Deep loamy, Well-drained",Year-round,20-38 tons,5.5,6.5,,
+Radish,Root Crops,Sandy loam,Oct-Feb,8-12 tons,5.2,6.7,30.0,45.0
+Rambutan,Fruit Trees,Loam,May-Sep,6-10 tons,5.5,6.5,240.0,300.0
+Red beans,Vegetables,"Loam, Clay loam",May-Aug,1-2 tons,6.0,7.0,90.0,120.0
+Repolyo,Vegetables,"Loam, Clay loam",Oct-Mar,20-30 tons,6.0,7.5,55.0,120.0
+Rice,,"Various, Well-drained",Jun-Aug; Nov-Jan; Apr-Jun,3.4-9.8 tons,6.0,7.0,106.0,120.0
+Rimas,Fruit Trees,"Sandy loam, Clay loam",All season,8-12 tons,6.1,7.4,180.0,270.0
+Saging,Fruits,Loam,All season,10-15 tons,6.0,7.5,270.0,360.0
+Saluyot,Vegetables,"Sandy loam, Loam",All season,2-3 tons,5.5,7.0,30.0,45.0
+Santol,Fruit Trees,"Clay loam, CLAY",July-Sep,8-12 tons,5.5,7.0,180.0,270.0
+Seleri,Vegetables,Sandy loam,Oct-Feb,10-15 tons,6.0,7.0,80.0,120.0
+Sibuyas,Vegetables,Sandy loam,Oct-Dec,10-15 tons,5.8,6.5,120.0,150.0
+Sigarilyas,,"Friable loam, Rich organic matter",June-July; April (upland),5-6 tons,6.0,6.5,60.0,90.0
+Siling,Fruit Vegetables,Sandy loam,May-Dec,5-10 tons,5.8,6.8,60.0,90.0
+Sineguelas,Fruit Trees,"Sandy loam, Loam",Mar-July,5-8 tons,5.5,7.0,120.0,180.0
+Singkamas,Root Crops,"Sandy loam, Loam",Mar-May,10-15 tons,5.5,7.0,80.0,120.0
+Sitao,Vegetables,"Loam, Clay loam",May-Aug,2-4 tons,5.0,6.0,60.0,80.0
+Sitaw,Vegetables,"Silt loam, Loam",May-Oct,1.5-3 tons,5.0,6.5,50.0,70.0
+Sorghum,Corn,Sandy loam,April-July,2-3 tons,6.0,7.5,90.0,120.0
+Soybeans,Vegetables,"Loam, Clay loam",May-Aug,1.5-2.5 tons,6.0,7.0,90.0,120.0
+Spinach,Vegetables,Sandy loam,Oct-Mar,5-8 tons,6.5,7.0,40.0,50.0
+Spring onion,Vegetables,"Sandy loam, Loam",All season,3-5 tons,6.0,7.0,60.0,90.0
+Squash,,"Sandy loam, Clay loam",Oct-Dec; May-Jul (hilly),25-35 tons,6.0,6.7,,
+Starapple,Fruit Trees,"Sandy loam, Clay loam",All season,8-12 tons,5.5,7.0,240.0,300.0
+Sweet peas,Vegetables,"Silt loam, Loam",Oct-Jan,1.5-2.5 tons,6.0,7.5,60.0,70.0
+Talong,Fruit Vegetables,Sandy loam,All season,9-15 tons,6.0,7.5,90.0,120.0
+Tambis,Fruit Trees,"Sandy loam, Deep loam",Jun-Aug,4-6 tons,5.5,7.0,180.0,240.0
+Tanglad,Grasses,"Sandy loam, Loam",All season,3-5 tons,6.0,7.5,120.0,180.0
+Tubo,Plantation Crops,Clay loam,All season,50-80 tons,6.0,8.0,365.0,540.0
+Ubi,,"Sandy loam, Silt loam",Mar-May; Feb-Mar,10-56 tons,4.5,6.5,300.0,330.0
+Upo,Fruit Vegetables,Sandy loam,All season,8-15 tons,5.5,7.0,60.0,90.0
+Uvas,Fruits,"Sandy loam, Loam",All season,8-12 tons,6.0,7.0,150.0,180.0
+Wonder beans,Vegetables,"Sandy loam, Loam",May-Aug,2-3 tons,5.5,6.5,60.0,90.0
+Yam beans,Vegetables,"Silt loam, Silt loam",All season,3-5 tons,6.0,7.0,150.0,180.0
+Zapote,Fruit Trees,"Sandy loam, Clay loam",Aug-Dec,10-15 tons,6.0,7.5,270.0,360.0
+Zucchini,Fruit Vegetables,"Sandy loam, Loam",All season,12-18 tons,5.5,7.0,50.0,65.0

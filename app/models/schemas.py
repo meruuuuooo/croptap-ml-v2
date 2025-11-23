@@ -16,7 +16,7 @@ class NPKLevel(str, Enum):
 class RecommendationRequest(BaseModel):
     """Request schema for crop recommendation."""
     province: str = Field(..., description="Province name")
-    municipality: str = Field(..., description="Municipality name")
+    municipality: Optional[str] = Field(None, description="Municipality name")
     nitrogen: NPKLevel = Field(..., description="Nitrogen level (Low/Medium/High)")
     phosphorus: NPKLevel = Field(..., description="Phosphorus level (Low/Medium/High)")
     potassium: NPKLevel = Field(..., description="Potassium level (Low/Medium/High)")
@@ -92,7 +92,7 @@ class CropRecommendation(BaseModel):
 class LocationSummary(BaseModel):
     """Location summary."""
     province: str
-    municipality: str
+    municipality: Optional[str]
 
 
 class ClimateSummary(BaseModel):
