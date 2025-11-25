@@ -1,0 +1,21 @@
+[Unit]
+Description=CropTap ML Recommendation API
+After=network.target
+
+[Service]
+Type=notify
+User=croptap
+Group=croptap
+WorkingDirectory=/opt/croptap-api
+Environment="PATH=/opt/croptap-api/venv/bin"
+EnvironmentFile=-/opt/croptap-api/.env
+ExecStart=/opt/croptap-api/venv/bin/gunicorn app.main:app -c /opt/croptap-api/gunicorn_config.py
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

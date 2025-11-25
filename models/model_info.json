@@ -1,0 +1,15 @@
+{
+  "feature_names": [
+    "npk_match",
+    "ph_proximity",
+    "temp_suitability",
+    "rainfall_suitability",
+    "humidity_suitability",
+    "soil_match",
+    "historical_yield",
+    "season_alignment",
+    "regional_success",
+    "month"
+  ],
+  "model_type": "RandomForest"
+}

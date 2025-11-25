@@ -23,14 +23,7 @@ wheels/
 .installed.cfg
 *.egg
 
-# Jupyter Notebook
-.ipynb_checkpoints
-*.ipynb_checkpoints/
-
 # Models
-models/*.pkl
-models/*.csv
-models/*.json
 !models/.gitkeep
 
 # IDE
@@ -45,9 +38,9 @@ models/*.json
 Thumbs.db
 
 # Environment
+.venv/
 .env
 .env.local
 
 # Logs
 *.log
-
