@@ -1,0 +1,99 @@
+CROPTAP ML API - PROJECT STRUCTURE
+=====================================
+
+croptap-ml-v3/machine_learning_api/
+│
+├── app/                                    # Main application directory
+│   ├── __init__.py                        # App package initializer
+│   ├── main.py                            # FastAPI application entry point
+│   │
+│   ├── models/                            # Pydantic schemas for API validation
+│   │   ├── __init__.py
+│   │   └── schemas.py                     # Request/Response models
+│   │
+│   ├── services/                          # Business logic layer
+│   │   ├── __init__.py
+│   │   ├── data_loader.py                 # Load CSV datasets
+│   │   ├── feature_extractor.py           # Extract ML features from input
+│   │   ├── ml_model.py                    # Machine learning model wrapper
+│   │   ├── ml_scorer.py                   # ML-based scoring logic
+│   │   ├── recommendation_engine.py       # Main recommendation orchestrator
+│   │   ├── rule_based_scorer.py           # Rule-based scoring logic
+│   │   └── yield_predictor.py             # Yield prediction service
+│   │
+│   └── utils/                             # Utility functions
+│       ├── __init__.py
+│       ├── data_processor.py              # Data processing utilities
+│       ├── data_visualizer.py             # Visualization utilities
+│       └── validators.py                  # Input validation functions
+│
+├── deployment/                            # Deployment configuration files
+│   ├── README.md                          # Deployment documentation
+│   ├── backup.sh                          # Database/file backup script
+│   ├── croptap-api.service                # Systemd service file
+│   ├── deploy.sh                          # Deployment automation script
+│   └── nginx-croptap-api.conf             # Nginx reverse proxy config
+│
+├── models/                                # Trained ML models and metadata
+│   ├── .gitkeep
+│   ├── crop_suitability_model.pkl         # Trained scikit-learn model (7.9 MB)
+│   ├── model_info.json                    # Model metadata and statistics
+│   ├── training_dataset.csv               # Training data (64 MB)
+│   └── validation_dataset.csv             # Validation data (16 MB)
+│
+├── notebooks/                             # Jupyter notebooks for ML workflow
+│   ├── 01_data_exploration.ipynb          # Initial data analysis
+│   ├── 02_feature_engineering.ipynb       # Feature creation and selection
+│   ├── 03_model_training.ipynb            # Model training process
+│   ├── 04_model_evaluation.ipynb          # Model performance evaluation
+│   ├── 05_model_deep_dive.ipynb           # Advanced model analysis
+│   ├── feature_importance.png             # Feature importance visualization
+│   ├── predicted_vs_actual.png            # Model prediction visualization
+│   └── fix_visualization.py               # Visualization helper script
+│
+├── raw_datasets/                          # Source data files
+│   ├── climate_data.csv                   # Weather/climate data (24.6 MB)
+│   ├── crop_climate_requirements.csv      # Crop climate needs
+│   ├── crop_npk_level_requirements.csv    # Crop NPK fertilizer requirements
+│   ├── crop_requirements.csv              # General crop requirements
+│   ├── historical_crop_performance.csv    # Historical yield data (3.4 MB)
+│   └── soil_test_data.csv                 # Soil analysis data (1.2 MB)
+│
+├── .env.example                           # Environment variables template
+├── .gitignore                             # Git ignore rules
+├── GEMINI.md                              # Project overview and conventions
+├── README.md                              # Main project documentation
+├── feature_correlation_matrix.png         # Feature correlation visualization
+├── gunicorn_config.py                     # Gunicorn WSGI server config
+├── requirements.txt                       # Python dependencies
+└── soil_rec.csv                           # Additional soil recommendation data
+
+=====================================
+DIRECTORY SUMMARY
+=====================================
+
+Total Files: ~35+ (excluding __pycache__ and .git)
+Total Size: ~90+ MB (mainly datasets and model files)
+
+Key Directories:
+- app/          : FastAPI application code (modular architecture)
+- models/       : Trained ML models and datasets
+- raw_datasets/ : Source CSV files for training and recommendations
+- notebooks/    : Jupyter notebooks for ML development lifecycle
+- deployment/   : Production deployment scripts and configs
+
+Architecture:
+- Hybrid recommendation system (40% rule-based + 60% ML)
+- RESTful API using FastAPI
+- Service-oriented modular design
+- Clear separation of concerns (models, services, utils)
+
+Main Entry Points:
+- app/main.py                    : API server
+- notebooks/01-05_*.ipynb        : ML training pipeline
+- deployment/deploy.sh           : Production deployment
+
+API Endpoints:
+- POST /api/v1/recommend         : Get crop recommendations
+- GET /health                    : Health check
+- GET /docs                      : Interactive API documentation
